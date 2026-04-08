@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+:root {
+  color: #241912;
+  background: #f6efe6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f6efe6;
+}
+
+button,
+input,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-editorial {
+  font-family: 'Fraunces', serif;
+}
+
+.font-clean {
+  font-family: 'Manrope', sans-serif;
+}
+
+.font-guide-display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.font-guide-body {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.font-ritual-display {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-ritual-body {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-notebook-display {
+  font-family: 'Newsreader', serif;
+}
+
+.font-notebook-body {
+  font-family: 'Public Sans', sans-serif;
+}
+
+.font-botanical-display {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-botanical-body {
+  font-family: 'Instrument Sans', sans-serif;
+}
+
+.rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-2 {
+  animation-delay: 0.14s;
+}
+
+.delay-3 {
+  animation-delay: 0.28s;
+}
+
+.delay-4 {
+  animation-delay: 0.42s;
+}
+
+.coffee-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(115, 79, 49, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(115, 79, 49, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 75%);
+  pointer-events: none;
+}
+
+.paper-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background-image: radial-gradient(rgba(88, 58, 36, 0.12) 0.8px, transparent 0.8px);
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+.glass-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.07)
+  );
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.glass-panel-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.04)
+  );
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.hero-stagger > * {
+  opacity: 0;
+  animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-stagger > *:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.hero-stagger > *:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.hero-stagger > *:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.hero-stagger > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.hero-stagger > *:nth-child(5) {
+  animation-delay: 0.52s;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
