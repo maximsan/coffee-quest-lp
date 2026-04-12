@@ -1,4 +1,5 @@
 import { audiences, cards, lessonBullets } from "../content";
+import { CoffeeTreeArtwork } from "./CoffeeTreeArtwork";
 
 export function WaitlistForm({
   dark = false,
@@ -98,7 +99,7 @@ export function AudienceList({ dark = false, theme = "default" }) {
         <div
           key={item}
           className={[
-            "rounded-[24px] border p-5",
+            "rounded-[24px] border p-5 text-center",
             forestDark
               ? "border-[#2e3a33] bg-[#111714] text-[#e2ebe0]"
               : dark
@@ -388,7 +389,10 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
   );
 }
 
-export function TreePreview({ dark = false, theme = "default" }) {
+export function TreePreview({
+  dark = false,
+  theme = "default",
+}) {
   const forestDark = dark && theme === "forest";
   return (
     <div
@@ -434,13 +438,7 @@ export function TreePreview({ dark = false, theme = "default" }) {
           62%
         </div>
       </div>
-      <div className="relative h-40 rounded-[22px] bg-[linear-gradient(180deg,rgba(212,177,129,0.16),rgba(72,46,29,0.08))]">
-        <div className="absolute inset-x-5 bottom-4 h-3 rounded-full bg-[#6d4d36]/20" />
-        <div className="absolute bottom-6 left-1/2 h-20 w-2 -translate-x-1/2 rounded-full bg-[#714c33]" />
-        <div className="absolute left-[38%] top-[40%] h-16 w-16 rounded-full bg-[#61815f]" />
-        <div className="absolute right-[36%] top-[32%] h-14 w-14 rounded-full bg-[#73946a]" />
-        <div className="absolute left-[43%] top-[24%] h-12 w-12 rounded-full bg-[#89ab7d]" />
-      </div>
+      <CoffeeTreeArtwork />
     </div>
   );
 }

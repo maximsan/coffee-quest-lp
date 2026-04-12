@@ -1,81 +1,81 @@
 export const howItWorks = [
   {
-    title: 'Start with one clear lesson',
+    title: 'Learn one clear idea',
     description:
-      'Learn one coffee concept at a time, from beans and roast levels to brewing basics and flavor notes.',
+      'Start with one short lesson on a practical coffee topic, from roast and beans to brewing and taste.',
   },
   {
-    title: 'Play a quick mini-game',
+    title: 'Reinforce it quickly',
     description:
-      'Lock in what you learned with swipeable challenges, fast taste matches, and low-pressure practice.',
+      'Use a quick mini-game or interaction to help the concept stick before moving on.',
   },
   {
-    title: 'See real progress',
+    title: 'See your progress build',
     description:
-      'Grow your coffee tree, collect Coffee Cards, and move through a structured path that always shows what comes next.',
+      'Collect Coffee Cards, move through the learning path, and watch your coffee tree grow over time.',
   },
 ]
 
 export const features = [
   {
-    title: 'Short daily lessons',
+    title: 'Short lessons',
     description:
-      'A few focused minutes each day keeps learning approachable and easy to return to.',
+      'Learn one practical coffee concept at a time, so the basics feel clear instead of overwhelming.',
   },
   {
     title: 'Quick mini-games',
     description:
-      'Tiny interactive challenges make facts stick without turning the app into homework.',
+      'Reinforce what you just learned through small interactions that help key ideas stick.',
   },
   {
     title: 'Structured learning path',
     description:
-      'Go step by step through beans, roast, brewing, and taste with no jargon maze to untangle.',
+      'Move from beans and roast to brewing and taste in a logical order, without getting lost in random content.',
   },
   {
     title: 'Coffee Cards',
     description:
-      'Collect pocket-sized references you can revisit whenever you need a quick refresher.',
+      'Save important ideas in a visual format you can revisit anytime.',
   },
   {
     title: 'Coffee tree growth',
     description:
-      'Visible progress adds momentum, making every lesson feel like it leads somewhere.',
+      'Turn progress into something visible and motivating as your understanding grows.',
   },
 ]
 
 export const audiences = [
-  'Curious beginners who want a clear starting point',
-  'People who love coffee but do not know the vocabulary yet',
-  'Home brewers who want more confidence without overwhelm',
+  'People who enjoy coffee but feel lost when terms like roast, origin, body, or acidity come up',
+  'Beginners who want a clear starting point instead of random videos and articles',
+  'Home brewers who want to understand why their coffee tastes bitter, weak, or sour',
 ]
 
 export const stats = [
   '3-minute lessons',
-  '5 learning tracks',
-  '100% beginner-friendly',
+  '4 core topics',
+  'Beginner-friendly',
 ]
 
 export const cards = [
   {
     label: 'Bean',
     value: 'Arabica',
-    note: 'Sweeter, softer acidity, often floral or fruity',
+    note: 'Usually softer, sweeter, and easier to approach for beginners',
   },
   {
     label: 'Roast',
-    value: 'Medium',
-    note: 'Balanced sweetness, body, and origin character',
+    value: 'Light roast',
+    note: 'Often keeps more acidity and origin character in the cup',
   },
   {
-    label: 'Brew',
-    value: 'Pour over',
-    note: 'Clean cup that makes small flavor differences easy to notice',
+    label: 'Taste',
+    value: 'Bitterness',
+    note: 'Often gets stronger when coffee is extracted too much',
   },
 ]
 
 export const lessonBullets = [
-  'What roast changes in flavor and aroma',
-  'How bitterness, body, and sweetness shift',
-  'When lighter roasts are easier to taste clearly',
+  'What bitterness usually means',
+  'What over-extraction changes',
+  'How grind size can affect taste',
 ]
