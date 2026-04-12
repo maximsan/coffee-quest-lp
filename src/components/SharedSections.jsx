@@ -61,10 +61,10 @@ export function WaitlistForm({
         <p
           className={
             forestDark
-              ? "mt-3 text-center text-sm text-[#b8c8b7]"
+              ? "mt-2 text-center text-[12px] text-[#9eb39c]"
               : dark
-                ? "mt-3 text-center text-sm text-white/70"
-                : "mt-3 text-center text-sm text-[#7a6659]"
+                ? "mt-2 text-center text-[12px] text-white/56"
+                : "mt-2 text-center text-[12px] text-[#7a6659]"
           }
         >
           {note}
@@ -214,9 +214,9 @@ export function PhoneMockup({
             <p
               className={
                 forestDark
-                  ? "text-[11px] uppercase tracking-[0.24em] text-[#9eb999]"
+                  ? "text-[11px] uppercase tracking-[0.24em] text-[#b3c6b0]"
                   : dark
-                    ? "text-[11px] uppercase tracking-[0.24em] text-white/45"
+                    ? "text-[11px] uppercase tracking-[0.24em] text-white/58"
                     : "text-[11px] uppercase tracking-[0.24em] text-[#967762]"
               }
             >
@@ -261,7 +261,7 @@ export function LessonPreview({
             forestDark
               ? "border-[#2d3832] bg-[#111714] text-[#e4ece2]"
               : dark
-                ? "border-white/10 bg-white/6 text-white/82"
+                ? "border-white/10 bg-white/6 text-white/86"
                 : "border-[#eadfd1] bg-[#f8f1e8] text-[#634f42]",
           ].join(" ")}
         >
@@ -272,9 +272,9 @@ export function LessonPreview({
         <span
           className={
             forestDark
-              ? "text-sm text-[#9cae9c]"
-              : dark
-                ? "text-sm text-white/62"
+              ? "text-sm text-[#afc0ad]"
+            : dark
+                ? "text-sm text-white/68"
                 : "text-sm text-[#8b7463]"
           }
         >
@@ -369,12 +369,12 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
   ];
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       {stages.map((stage, index) => (
         <div
           key={stage.name}
           className={[
-            "flex items-center gap-3 rounded-[18px] border px-3 py-2.5",
+            "flex items-center gap-2.5 rounded-[18px] border px-3.5 py-2.5",
             forestDark
               ? "border-[#26312b] bg-[#121916]"
               : dark
@@ -410,10 +410,10 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
           <div
             className={
               forestDark
-                ? "text-sm text-[#b8c8b7]"
-                : dark
-                  ? "text-sm text-white/68"
-                  : "text-sm text-[#937d6f]"
+                ? "min-w-[3.25rem] text-right text-sm text-[#c0cfbe]"
+              : dark
+                  ? "min-w-[3.25rem] text-right text-sm text-white/74"
+                  : "min-w-[3.25rem] text-right text-sm text-[#937d6f]"
             }
           >
             {stage.status}
@@ -427,6 +427,7 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
 export function TreePreview({
   dark = false,
   theme = "default",
+  title = "Beginner grove",
 }) {
   const forestDark = dark && theme === "forest";
   return (
@@ -445,9 +446,9 @@ export function TreePreview({
           <p
             className={
               forestDark
-                ? "text-[11px] uppercase tracking-[0.24em] text-[#b0c6ad]"
+                ? "text-[11px] uppercase tracking-[0.24em] text-[#b8cbb5]"
                 : dark
-                  ? "text-[11px] uppercase tracking-[0.24em] text-white/60"
+                  ? "text-[11px] uppercase tracking-[0.24em] text-white/62"
                   : "text-[11px] uppercase tracking-[0.24em] text-[#8f7460]"
             }
           >
@@ -458,7 +459,7 @@ export function TreePreview({
               dark ? "mt-1 text-lg text-white" : "mt-1 text-lg text-[#2d2118]"
             }
           >
-            Beginner grove
+            {title}
           </h4>
         </div>
         <div

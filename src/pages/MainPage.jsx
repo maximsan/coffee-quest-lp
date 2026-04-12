@@ -1,4 +1,3 @@
-import { howItWorks } from "../content";
 import {
   Footer,
   LessonPreview,
@@ -15,6 +14,26 @@ export function DesignFive() {
     "What bitterness usually means",
     "How over-extraction affects flavor",
     "How grind size affects taste",
+  ];
+  const howItWorksSteps = [
+    {
+      label: "Step 1",
+      title: "Learn one clear idea",
+      description:
+        "Start with one short lesson on a practical coffee topic, from beans and roast to brewing and taste.",
+    },
+    {
+      label: "Step 2",
+      title: "Practice it right away",
+      description:
+        "Use a quick mini-game or interaction to help the concept stick before moving on.",
+    },
+    {
+      label: "Step 3",
+      title: "See your progress grow",
+      description:
+        "Collect Coffee Cards, move through the learning path, and watch your coffee tree grow over time.",
+    },
   ];
 
   return (
@@ -39,7 +58,7 @@ export function DesignFive() {
         </header>
 
         <section className="grid gap-8 pt-4 pb-2 md:pt-10 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-10 lg:pt-16 lg:pb-4">
-          <div className="rise-in mx-auto flex max-w-[760px] flex-col items-center space-y-6 text-center lg:mx-0 lg:block lg:max-w-none lg:text-left">
+          <div className="rise-in mx-auto flex max-w-[760px] flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
             <SectionTag dark>Structured learning for beginners</SectionTag>
             <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">
               A beginner coffee app that feels clear from the first sip.
@@ -54,7 +73,7 @@ export function DesignFive() {
               <span className="h-1.5 w-1.5 rounded-full bg-[#b88656]" />
               <span>Brew better daily</span>
             </div>
-            <div className="mt-4 w-full max-w-[640px] lg:max-w-xl">
+            <div className="w-full max-w-[640px] pt-1 lg:max-w-xl">
               <WaitlistForm
                 dark
                 placeholder="Enter your email"
@@ -75,7 +94,7 @@ export function DesignFive() {
               </div>
               <div className="grid w-[280px] justify-items-center gap-4 pt-0 md:pt-8 lg:pt-10">
                 <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
-                  <TreePreview dark />
+                  <TreePreview dark title="Beginner path" />
                 </div>
                 <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
                   <ProgressPreview dark />
@@ -89,36 +108,35 @@ export function DesignFive() {
         <section className="mx-auto grid w-full max-w-[920px] gap-6 pt-4 pb-10 md:pt-6 lg:pt-8">
           <div className="rise-in rounded-[36px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
             <div className="mx-auto max-w-[760px] text-center">
-              <SectionTag dark>How it works</SectionTag>
+              <SectionTag dark>HOW IT WORKS</SectionTag>
               <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
-                A tighter path from first lesson to real coffee confidence.
+                A clearer path from first lesson to real coffee confidence.
               </h2>
-              <p className="mt-4 font-botanical-body text-base leading-7 text-white/66">
-                Coffee Quest keeps the rhythm simple: learn one thing, test it
-                quickly, and see your progress build in a way that feels calm
-                and motivating.
+              <p className="mt-4 font-botanical-body text-base leading-7 text-white/78">
+                Coffee Quest keeps learning simple: learn one idea, try it
+                right away, and watch your confidence grow with every step.
               </p>
             </div>
             <div className="mx-auto mt-8 grid max-w-[840px] gap-4 min-[781px]:grid-cols-2 lg:grid-cols-3">
-              {howItWorks.map((step, index) => (
+              {howItWorksSteps.map((step, index) => (
                 <article
                   key={step.title}
                   className={[
                     "rounded-[28px] border border-white/10 bg-[#111714] p-5 text-center",
                     "min-[781px]:flex min-[781px]:min-h-[280px] min-[781px]:justify-center min-[781px]:p-6",
-                    index === howItWorks.length - 1
+                    index === howItWorksSteps.length - 1
                       ? "min-[781px]:col-span-2 min-[781px]:mx-auto min-[781px]:w-full min-[781px]:max-w-[408px] lg:col-span-1 lg:max-w-none"
                       : "",
                   ].join(" ")}
                 >
                   <div className="min-[781px]:max-w-[260px]">
                     <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
-                      How it works {index + 1}
+                      {step.label}
                     </p>
                     <h3 className="mt-4 font-botanical-display text-3xl leading-none text-[#f7efe4] min-[781px]:text-[2.15rem]">
                       {step.title}
                     </h3>
-                    <p className="mt-3 font-botanical-body text-base leading-7 text-white/66">
+                    <p className="mt-3 font-botanical-body text-base leading-7 text-white/74">
                       {step.description}
                     </p>
                   </div>
