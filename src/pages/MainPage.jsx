@@ -1,15 +1,14 @@
-import {
-  Footer,
-  LessonPreview,
-  PhoneMockup,
-  ProgressPreview,
-  SectionTag,
-  TreePreview,
-  WaitlistForm,
-} from "../components/SharedSections";
-import { DesignFiveValueStack } from "./DesignFiveValueStack";
+import { WaitlistForm } from "../components/forms/WaitlistForm";
+import { SiteFooter } from "../components/layout/SiteFooter";
+import { SiteHeader } from "../components/layout/SiteHeader";
+import { LessonPreview } from "../components/previews/LessonPreview";
+import { PhoneMockup } from "../components/previews/PhoneMockup";
+import { ProgressPreview } from "../components/previews/ProgressPreview";
+import { TreePreview } from "../components/previews/TreePreview";
+import { MainPageValueStack } from "../components/sections/MainPageValueStack";
+import { SectionTag } from "../components/shared/SectionTag";
 
-export function DesignFive() {
+export function MainPage() {
   const heroLessonItems = [
     "What bitterness usually means",
     "How over-extraction affects flavor",
@@ -40,22 +39,7 @@ export function DesignFive() {
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
       <div className="relative mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-5 sm:px-8 lg:px-10">
-        <header className="rise-in flex items-center justify-between py-4">
-          <div>
-            <p className="font-botanical-body text-[11px] uppercase tracking-[0.34em] text-[#c8b18d]">
-              Coffee Quest
-            </p>
-            <p className="font-botanical-display text-xl text-[#f4eadf]">
-              Grow your coffee sense.
-            </p>
-          </div>
-          <a
-            href="#waitlist-five"
-            className="hidden md:block font-botanical-body rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/86 transition hover:border-white/25 hover:bg-white/10"
-          >
-            Join the waitlist
-          </a>
-        </header>
+        <SiteHeader />
 
         <section className="grid gap-8 pt-4 pb-2 md:pt-10 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-10 lg:pt-16 lg:pb-4">
           <div className="rise-in mx-auto flex max-w-[760px] flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
@@ -145,7 +129,7 @@ export function DesignFive() {
             </div>
           </div>
 
-          <DesignFiveValueStack />
+          <MainPageValueStack />
         </section>
 
         <section
@@ -168,7 +152,7 @@ export function DesignFive() {
         </section>
 
         <div className="mt-6 border-t border-white/10">
-          <Footer dark />
+          <SiteFooter dark />
         </div>
       </div>
     </main>

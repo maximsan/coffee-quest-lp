@@ -1,14 +1,12 @@
-import { features } from "../content";
-import coffeeTreeGrowthVideo from "../assets/Flowerpot_seed_to.mp4";
-import {
-  AudienceList,
-  CoffeeCardsPreview,
-  ProgressPreview,
-  SectionTag,
-} from "../components/SharedSections";
-import { BeginnerGroveVariants } from "../components/BeginnerGroveVariants";
+import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
+import { features } from "../../data/content";
+import { AudienceList } from "../previews/AudienceList";
+import { CoffeeCardsPreview } from "../previews/CoffeeCardsPreview";
+import { ProgressPreview } from "../previews/ProgressPreview";
+import { SectionTag } from "../shared/SectionTag";
+import { BeginnerGroveVariants } from "../tree/BeginnerGroveVariants";
 
-export function DesignFiveValueStack() {
+export function MainPageValueStack() {
   const showTreeDirections = false;
 
   return (
