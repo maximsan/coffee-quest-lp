@@ -9,7 +9,7 @@ import {
   STEM_COLOR,
 } from "./TreeArtworkPrimitives";
 
-export function TreeVariant() {
+export function HeroCoffeeTreeGraphic() {
   return (
     <svg
       viewBox="0 0 320 240"

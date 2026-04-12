@@ -5,10 +5,10 @@ import { LessonPreview } from "../components/previews/LessonPreview";
 import { PhoneMockup } from "../components/previews/PhoneMockup";
 import { ProgressPreview } from "../components/previews/ProgressPreview";
 import { TreePreview } from "../components/previews/TreePreview";
-import { MainPageValueStack } from "../components/sections/MainPageValueStack";
+import { LandingPageSections } from "../components/sections/LandingPageSections";
 import { SectionTag } from "../components/shared/SectionTag";
 
-export function MainPage() {
+export function LandingPage() {
   const heroLessonItems = [
     "What bitterness usually means",
     "How over-extraction affects flavor",
@@ -129,7 +129,7 @@ export function MainPage() {
             </div>
           </div>
 
-          <MainPageValueStack />
+          <LandingPageSections />
         </section>
 
         <section

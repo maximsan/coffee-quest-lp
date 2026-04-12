@@ -1,22 +1,4 @@
-export const howItWorks = [
-  {
-    title: 'Learn one clear idea',
-    description:
-      'Start with one short lesson on a practical coffee topic, from roast and beans to brewing and taste.',
-  },
-  {
-    title: 'Reinforce it quickly',
-    description:
-      'Use a quick mini-game or interaction to help the concept stick before moving on.',
-  },
-  {
-    title: 'See your progress build',
-    description:
-      'Collect Coffee Cards, move through the learning path, and watch your coffee tree grow over time.',
-  },
-]
-
-export const features = [
+export const landingPageFeatures = [
   {
     title: 'Short lessons',
     description:
@@ -44,19 +26,13 @@ export const features = [
   },
 ]
 
-export const audiences = [
+export const landingPageAudiences = [
   'People who enjoy coffee but feel lost when terms like roast, origin, body, or acidity come up',
   'Beginners who want a clear starting point instead of random videos and articles',
   'Home brewers who want to understand why their coffee tastes bitter, weak, or sour',
 ]
 
-export const stats = [
-  '3-minute lessons',
-  '4 core topics',
-  'Beginner-friendly',
-]
-
-export const cards = [
+export const landingPageCoffeeCards = [
   {
     label: 'Bean',
     value: 'Arabica',
@@ -74,7 +50,7 @@ export const cards = [
   },
 ]
 
-export const lessonBullets = [
+export const landingPageLessonBullets = [
   'What bitterness usually means',
   'What over-extraction changes',
   'How grind size can affect taste',

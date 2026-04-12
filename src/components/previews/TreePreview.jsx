@@ -1,4 +1,4 @@
-import { CoffeeTreeArtwork } from "../tree/CoffeeTreeArtwork";
+import { CoffeeTreePreview } from "../tree/CoffeeTreePreview";
 
 export function TreePreview({
   dark = false,
@@ -51,7 +51,7 @@ export function TreePreview({
           62%
         </div>
       </div>
-      <CoffeeTreeArtwork />
+      <CoffeeTreePreview />
     </div>
   );
 }

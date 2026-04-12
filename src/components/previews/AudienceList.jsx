@@ -1,11 +1,11 @@
-import { audiences } from "../../data/content";
+import { landingPageAudiences } from "../../data/landingPageContent";
 
 export function AudienceList({ dark = false, theme = "default" }) {
   const forestDark = dark && theme === "forest";
 
   return (
     <div className="grid gap-3">
-      {audiences.map((item) => (
+      {landingPageAudiences.map((item) => (
         <div
           key={item}
           className={[

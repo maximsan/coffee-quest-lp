@@ -1,9 +1,9 @@
-import { lessonBullets } from "../../data/content";
+import { landingPageLessonBullets } from "../../data/landingPageContent";
 
 export function LessonPreview({
   dark = false,
   theme = "default",
-  items = lessonBullets,
+  items = landingPageLessonBullets,
 }) {
   const forestDark = dark && theme === "forest";
 

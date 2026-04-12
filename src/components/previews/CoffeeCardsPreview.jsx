@@ -1,11 +1,11 @@
-import { cards } from "../../data/content";
+import { landingPageCoffeeCards } from "../../data/landingPageContent";
 
 export function CoffeeCardsPreview({ dark = false, theme = "default" }) {
   const forestDark = dark && theme === "forest";
 
   return (
     <div className="grid gap-3">
-      {cards.map((card) => (
+      {landingPageCoffeeCards.map((card) => (
         <article
           key={card.label}
           className={[

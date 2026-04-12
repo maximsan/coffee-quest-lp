@@ -1,12 +1,12 @@
 import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
-import { features } from "../../data/content";
+import { landingPageFeatures } from "../../data/landingPageContent";
 import { AudienceList } from "../previews/AudienceList";
 import { CoffeeCardsPreview } from "../previews/CoffeeCardsPreview";
 import { ProgressPreview } from "../previews/ProgressPreview";
 import { SectionTag } from "../shared/SectionTag";
 import { BeginnerGroveVariants } from "../tree/BeginnerGroveVariants";
 
-export function MainPageValueStack() {
+export function LandingPageSections() {
   const showTreeDirections = false;
 
   return (
@@ -19,12 +19,13 @@ export function MainPageValueStack() {
           </h2>
         </div>
         <div className="mx-auto mt-8 grid max-w-[760px] gap-4 sm:grid-cols-2">
-          {features.map((feature, index) => (
+          {landingPageFeatures.map((feature, index) => (
             <article
               key={feature.title}
               className={[
                 "rounded-[26px] border border-white/10 bg-[#101512] p-5 text-center",
-                index === features.length - 1 && features.length % 2 !== 0
+                index === landingPageFeatures.length - 1 &&
+                landingPageFeatures.length % 2 !== 0
                   ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-[372px]"
                   : "",
               ].join(" ")}
