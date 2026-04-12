@@ -11,6 +11,12 @@ import {
 import { DesignFiveValueStack } from "./DesignFiveValueStack";
 
 export function DesignFive() {
+  const heroLessonItems = [
+    "What bitterness usually means",
+    "How over-extraction affects flavor",
+    "How grind size affects taste",
+  ];
+
   return (
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
@@ -38,13 +44,23 @@ export function DesignFive() {
             <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">
               A beginner coffee app that feels clear from the first sip.
             </h1>
-            <p className="font-botanical-body max-w-[700px] text-lg leading-8 text-white/72 lg:max-w-xl">
-              Coffee Quest uses short daily lessons, quick mini-games, Coffee
-              Cards, and a growing coffee tree to turn coffee basics into a
-              habit you can actually keep.
+            <p className="font-botanical-body max-w-[700px] text-lg leading-8 text-white/80 lg:max-w-xl">
+              Coffee Quest uses short daily lessons, quick mini-games, Coffee Cards, and a growing coffee tree to turn coffee basics into a habit you can actually keep.
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 font-botanical-body text-sm text-[#dfc39e] lg:justify-start">
+              <span>3 min lessons</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#b88656]" />
+              <span>Mini-games</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#b88656]" />
+              <span>Brew better daily</span>
+            </div>
             <div className="mt-4 w-full max-w-[640px] lg:max-w-xl">
-              <WaitlistForm dark />
+              <WaitlistForm
+                dark
+                placeholder="Enter your email"
+                buttonLabel="Join waitlist"
+                note="Early access. No spam."
+              />
             </div>
           </div>
 
@@ -54,7 +70,7 @@ export function DesignFive() {
               <div className="mx-auto grid w-fit items-start justify-items-center gap-4 md:grid-cols-[280px_280px] md:gap-5 lg:grid-cols-[280px_280px] lg:gap-4">
               <div className="flex justify-center self-center">
                 <PhoneMockup dark title="Today" subtitle="Brewing basics">
-                  <LessonPreview dark />
+                  <LessonPreview dark items={heroLessonItems} />
                 </PhoneMockup>
               </div>
               <div className="grid w-[280px] justify-items-center gap-4 pt-0 md:pt-8 lg:pt-10">

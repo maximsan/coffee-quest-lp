@@ -5,6 +5,9 @@ export function WaitlistForm({
   dark = false,
   compact = false,
   theme = "default",
+  placeholder = "Email address",
+  buttonLabel = "Join the waitlist",
+  note,
 }) {
   const forestDark = dark && theme === "forest";
   const shell = forestDark
@@ -15,7 +18,7 @@ export function WaitlistForm({
   const input = forestDark
     ? "border-[#2b3730] bg-[#0d1310] text-[#eef5eb] placeholder:text-[#9fb19f]"
     : dark
-      ? "border-white/10 bg-[#120d0a] text-white placeholder:text-white/45"
+      ? "border-white/10 bg-[#120d0a] text-white placeholder:text-white/58"
       : "border-[#d9cbbd] bg-[#fffdf9] text-[#2c2018] placeholder:text-[#826c5f]";
   const button = forestDark
     ? "bg-[#eef4ea] text-[#17201b] hover:bg-[#ffffff]"
@@ -24,35 +27,50 @@ export function WaitlistForm({
       : "bg-[#2f2118] text-[#f8f1e8] hover:bg-[#483126]";
 
   return (
-    <form
-      onSubmit={(event) => event.preventDefault()}
-      className={[
-        "rounded-[20px] border p-3",
-        shell,
-        compact
-          ? "mx-auto flex w-full max-w-md flex-col gap-2 sm:flex-row"
-          : "mx-auto flex w-full max-w-xl flex-col gap-3 sm:flex-row",
-      ].join(" ")}
-    >
-      <input
-        type="email"
-        aria-label="Email address"
-        placeholder="Email address"
+    <div className="w-full">
+      <form
+        onSubmit={(event) => event.preventDefault()}
         className={[
-          `min-w-0 flex-1 rounded-[12px] border px-5 py-3 text-sm outline-none transition ${forestDark ? "focus:border-[#7ca776]" : "focus:border-[#c88d59]"}`,
-          input,
-        ].join(" ")}
-      />
-      <button
-        type="submit"
-        className={[
-          "rounded-[12px] px-5 py-3 text-sm font-semibold transition duration-300",
-          button,
+          "rounded-[20px] border p-3",
+          shell,
+          compact
+            ? "mx-auto flex w-full max-w-md flex-col gap-2 sm:flex-row"
+            : "mx-auto flex w-full max-w-xl flex-col gap-3 sm:flex-row",
         ].join(" ")}
       >
-        Join the waitlist
-      </button>
-    </form>
+        <input
+          type="email"
+          aria-label="Email address"
+          placeholder={placeholder}
+          className={[
+            `min-w-0 flex-1 rounded-[12px] border px-5 py-3 text-sm outline-none transition ${forestDark ? "focus:border-[#7ca776]" : "focus:border-[#c88d59]"}`,
+            input,
+          ].join(" ")}
+        />
+        <button
+          type="submit"
+          className={[
+            "rounded-[12px] px-5 py-3 text-sm font-semibold transition duration-300",
+            button,
+          ].join(" ")}
+        >
+          {buttonLabel}
+        </button>
+      </form>
+      {note ? (
+        <p
+          className={
+            forestDark
+              ? "mt-3 text-center text-sm text-[#b8c8b7]"
+              : dark
+                ? "mt-3 text-center text-sm text-white/70"
+                : "mt-3 text-center text-sm text-[#7a6659]"
+          }
+        >
+          {note}
+        </p>
+      ) : null}
+    </div>
   );
 }
 
@@ -227,11 +245,15 @@ export function PhoneMockup({
   );
 }
 
-export function LessonPreview({ dark = false, theme = "default" }) {
+export function LessonPreview({
+  dark = false,
+  theme = "default",
+  items = lessonBullets,
+}) {
   const forestDark = dark && theme === "forest";
   return (
     <div className="space-y-3">
-      {lessonBullets.map((bullet) => (
+      {items.map((bullet) => (
         <div
           key={bullet}
           className={[
@@ -239,7 +261,7 @@ export function LessonPreview({ dark = false, theme = "default" }) {
             forestDark
               ? "border-[#2d3832] bg-[#111714] text-[#e4ece2]"
               : dark
-                ? "border-white/10 bg-white/5 text-white/72"
+                ? "border-white/10 bg-white/6 text-white/82"
                 : "border-[#eadfd1] bg-[#f8f1e8] text-[#634f42]",
           ].join(" ")}
         >
@@ -252,13 +274,22 @@ export function LessonPreview({ dark = false, theme = "default" }) {
             forestDark
               ? "text-sm text-[#9cae9c]"
               : dark
-                ? "text-sm text-white/45"
+                ? "text-sm text-white/62"
                 : "text-sm text-[#8b7463]"
           }
         >
           3 min lesson
         </span>
-        <div className="h-2 w-28 overflow-hidden rounded-full bg-black/10">
+        <div
+          className={[
+            "h-2 w-28 overflow-hidden rounded-full border",
+            forestDark
+              ? "border-[#314037] bg-[#1a241f]"
+              : dark
+                ? "border-white/8 bg-[#2a1f18]"
+                : "border-[#e3d6c8] bg-[#eadfce]",
+          ].join(" ")}
+        >
           <div
             className="h-full w-2/3 rounded-full"
             style={{ backgroundColor: forestDark ? "#7ca776" : "#c88d59" }}
@@ -330,12 +361,27 @@ export function QuizPreview({ dark = false, theme = "default" }) {
 
 export function ProgressPreview({ dark = false, theme = "default" }) {
   const forestDark = dark && theme === "forest";
-  const stages = ["Beans", "Roast", "Brewing", "Taste"];
+  const stages = [
+    { name: "Beans", status: "Done" },
+    { name: "Roast", status: "Done" },
+    { name: "Brewing", status: "Next" },
+    { name: "Taste", status: "Next" },
+  ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {stages.map((stage, index) => (
-        <div key={stage} className="flex items-center gap-3">
+        <div
+          key={stage.name}
+          className={[
+            "flex items-center gap-3 rounded-[18px] border px-3 py-2.5",
+            forestDark
+              ? "border-[#26312b] bg-[#121916]"
+              : dark
+                ? "border-white/8 bg-white/[0.03]"
+                : "border-[#eadfd1] bg-[#f8f1e8]",
+          ].join(" ")}
+        >
           <div
             className={[
               "grid h-10 w-10 place-items-center rounded-2xl text-sm font-semibold",
@@ -352,36 +398,25 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
           >
             {index + 1}
           </div>
-          <div className="flex-1">
-            <p
-              className={
-                forestDark
-                  ? "text-sm text-[#9cae9c]"
-                  : dark
-                    ? "text-sm text-white/54"
-                    : "text-sm text-[#8b7463]"
-              }
-            >
-              Path step
-            </p>
-            <h4
-              className={
-                dark ? "text-base text-white" : "text-base text-[#2d2118]"
-              }
-            >
-              {stage}
-            </h4>
-          </div>
+          <h4
+            className={
+              dark
+                ? "flex-1 text-base font-medium text-white"
+                : "flex-1 text-base font-medium text-[#2d2118]"
+            }
+          >
+            {stage.name}
+          </h4>
           <div
             className={
               forestDark
-                ? "text-sm text-[#a9baaa]"
+                ? "text-sm text-[#b8c8b7]"
                 : dark
-                  ? "text-sm text-white/45"
+                  ? "text-sm text-white/68"
                   : "text-sm text-[#937d6f]"
             }
           >
-            {index < 2 ? "Done" : "Next"}
+            {stage.status}
           </div>
         </div>
       ))}
@@ -410,9 +445,9 @@ export function TreePreview({
           <p
             className={
               forestDark
-                ? "text-[11px] uppercase tracking-[0.24em] text-[#9eb999]"
+                ? "text-[11px] uppercase tracking-[0.24em] text-[#b0c6ad]"
                 : dark
-                  ? "text-[11px] uppercase tracking-[0.24em] text-white/45"
+                  ? "text-[11px] uppercase tracking-[0.24em] text-white/60"
                   : "text-[11px] uppercase tracking-[0.24em] text-[#8f7460]"
             }
           >
@@ -429,9 +464,9 @@ export function TreePreview({
         <div
           className={
             forestDark
-              ? "text-sm text-[#9fc199]"
-              : dark
-                ? "text-sm text-[#ecc28b]"
+              ? "text-sm text-[#bfd2bb]"
+            : dark
+                ? "text-sm text-[#f0c690]"
                 : "text-sm text-[#9c6b40]"
           }
         >

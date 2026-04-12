@@ -207,15 +207,25 @@ input {
 
 .grove-tree-sway-slow {
   transform-origin: 50% 84%;
-  animation: grove-tree-sway 6.4s ease-in-out infinite;
+  animation: grove-tree-sway 5.8s cubic-bezier(0.42, 0, 0.2, 1) infinite;
 }
 
 .grove-tree-float {
-  animation: grove-tree-float 5.6s ease-in-out infinite;
+  animation: grove-tree-float 4.4s ease-in-out infinite;
 }
 
 .grove-tree-pulse {
   animation: grove-tree-pulse 3.8s ease-in-out infinite;
+}
+
+.grove-tree-rustle {
+  transform-origin: 50% 60%;
+  animation: grove-tree-rustle 3.8s ease-in-out infinite;
+}
+
+.grove-tree-fruit-bob {
+  transform-origin: 50% 55%;
+  animation: grove-tree-fruit-bob 3.4s ease-in-out infinite;
 }
 
 .grove-ritual-glow::before {
@@ -268,22 +278,30 @@ input {
 @keyframes grove-tree-sway {
   0%,
   100% {
-    transform: rotate(0deg);
+    transform: rotate(-0.32deg);
   }
 
-  50% {
-    transform: rotate(1.8deg);
+  35% {
+    transform: rotate(1.9deg);
+  }
+
+  70% {
+    transform: rotate(-1deg);
   }
 }
 
 @keyframes grove-tree-float {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 
-  50% {
-    transform: translateY(-3px);
+  30% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  65% {
+    transform: translate3d(0, 2px, 0);
   }
 }
 
@@ -300,6 +318,32 @@ input {
   }
 }
 
+@keyframes grove-tree-rustle {
+  0%,
+  100% {
+    transform: rotate(-0.63deg) scale(1);
+  }
+
+  33% {
+    transform: rotate(1.35deg) scale(1.011);
+  }
+
+  66% {
+    transform: rotate(-0.99deg) scale(0.993);
+  }
+}
+
+@keyframes grove-tree-fruit-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0, -0.72px, 0) scale(1.018);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .grove-card,
   .grove-bob,
@@ -307,7 +351,9 @@ input {
   .grove-tree-sway,
   .grove-tree-sway-slow,
   .grove-tree-float,
-  .grove-tree-pulse {
+  .grove-tree-pulse,
+  .grove-tree-rustle,
+  .grove-tree-fruit-bob {
     animation: none !important;
     transition: none !important;
     transform: none !important;
