@@ -7,6 +7,7 @@ import { ProgressPreview } from "../components/previews/ProgressPreview";
 import { TreePreview } from "../components/previews/TreePreview";
 import { LandingPageSections } from "../components/sections/LandingPageSections";
 import { SectionTag } from "../components/shared/SectionTag";
+import { ScrollBranchBackdrop } from "../components/tree/ScrollBranchBackdrop";
 
 export function LandingPage() {
   const heroLessonItems = [
@@ -38,10 +39,11 @@ export function LandingPage() {
   return (
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-5 sm:px-8 lg:px-10">
+      <ScrollBranchBackdrop />
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-5 sm:px-8 lg:px-10">
         <SiteHeader />
 
-        <section className="grid gap-8 pt-4 pb-2 md:pt-10 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-10 lg:pt-16 lg:pb-4">
+        <section className="relative grid gap-8 pt-4 pb-2 md:pt-10 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-10 lg:pt-16 lg:pb-4">
           <div className="rise-in mx-auto flex max-w-[760px] flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
             <SectionTag dark>Structured learning for beginners</SectionTag>
             <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">

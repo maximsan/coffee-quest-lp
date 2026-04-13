@@ -169,6 +169,94 @@ input {
   animation-delay: 0.52s;
 }
 
+.branch-backdrop {
+  --branch-reveal-trunk: 0;
+  --branch-reveal-one: 0;
+  --branch-reveal-two: 0;
+  --branch-reveal-three: 0;
+  --branch-reveal-four: 0;
+  --branch-opacity: 0;
+  --branch-lift-trunk: 230px;
+  --branch-drift-trunk: -4px;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.62) 10%,
+    rgba(0, 0, 0, 0.95) 18%,
+    rgba(0, 0, 0, 0.95) 82%,
+    rgba(0, 0, 0, 0.58) 91%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.62) 10%,
+    rgba(0, 0, 0, 0.95) 18%,
+    rgba(0, 0, 0, 0.95) 82%,
+    rgba(0, 0, 0, 0.58) 91%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.branch-backdrop__trunk {
+  transform-origin: center bottom;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+  will-change: transform, opacity;
+}
+
+.branch-backdrop__trunk {
+  transform: translate3d(
+      var(--branch-drift-trunk),
+      var(--branch-lift-trunk),
+      0
+    )
+    scale(1.01);
+  opacity: calc(var(--branch-opacity) * 0.92);
+}
+
+.branch-backdrop__shadow {
+  fill: none;
+  stroke: rgba(108, 159, 96, 0.065);
+  stroke-width: 4.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(2.4px);
+}
+
+.branch-backdrop__stroke {
+  fill: none;
+  stroke: rgba(129, 191, 112, 0.34);
+  stroke-width: 1.24;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.branch-backdrop__path {
+  stroke-dasharray: 100;
+}
+
+.branch-backdrop__path--trunk {
+  stroke-dashoffset: calc(100 - (var(--branch-reveal-trunk) * 100));
+}
+
+.branch-backdrop__path--one {
+  stroke-dashoffset: calc(100 - (var(--branch-reveal-one) * 100));
+}
+
+.branch-backdrop__path--two {
+  stroke-dashoffset: calc(100 - (var(--branch-reveal-two) * 100));
+}
+
+.branch-backdrop__path--three {
+  stroke-dashoffset: calc(100 - (var(--branch-reveal-three) * 100));
+}
+
+.branch-backdrop__path--four {
+  stroke-dashoffset: calc(100 - (var(--branch-reveal-four) * 100));
+}
+
 .grove-card {
   position: relative;
   overflow: hidden;
@@ -348,6 +436,7 @@ input {
   .grove-card,
   .grove-bob,
   .grove-halo,
+  .branch-backdrop__trunk,
   .grove-tree-sway,
   .grove-tree-sway-slow,
   .grove-tree-float,
@@ -357,5 +446,11 @@ input {
     animation: none !important;
     transition: none !important;
     transform: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .branch-backdrop {
+    display: none;
   }
 }
