@@ -2,7 +2,7 @@ export function SiteFooter({ dark = false }) {
   return (
     <footer
       className={[
-        "flex flex-col items-center justify-between gap-3 px-6 py-8 text-center text-sm sm:flex-row sm:text-left",
+        "flex flex-col items-center justify-between gap-3 px-6 py-4 text-center text-sm sm:flex-row sm:py-6 sm:text-left",
         dark ? "text-white/60" : "text-[#7a6659]",
       ].join(" ")}
     >

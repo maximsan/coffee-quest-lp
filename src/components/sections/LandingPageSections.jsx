@@ -1,7 +1,7 @@
 import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
 import { landingPageValueProps } from "../../data/landingPageContent";
+import { CoffeeCardsConceptPreview } from "../previews/CoffeeCardsConceptPreview";
 import { AudienceList } from "../previews/AudienceList";
-import { CoffeeCardsPreview } from "../previews/CoffeeCardsPreview";
 import { ProgressPreview } from "../previews/ProgressPreview";
 import { SectionTag } from "../shared/SectionTag";
 
@@ -106,67 +106,57 @@ export function LandingPageSections() {
       </div>
 
       <div className="rise-in rounded-[36px] border border-white/10 bg-[#101512] p-7">
-        <div className="mx-auto max-w-[760px] text-center">
-          <SectionTag dark>Progress and recall</SectionTag>
-          <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
+        <div className="mx-auto max-w-[700px] text-center">
+          <SectionTag dark>PROGRESS AND RECALL</SectionTag>
+          <h2 className="mx-auto mt-5 max-w-[13.5ch] font-botanical-display text-[2.35rem] leading-[0.96] text-[#f6ede3] sm:text-[2.95rem]">
             Quick references and visible growth stay close at hand.
           </h2>
-          <p className="mt-4 font-botanical-body text-base leading-7 text-white/62">
-            Coffee Cards help key ideas stay reviewable, while the growth
-            visual keeps progress present without overpowering the page.
+          <p className="mx-auto mt-4 max-w-[38rem] font-botanical-body text-[15px] leading-[1.8] text-white/60 sm:text-[15px]">
+            Coffee Cards keep key ideas easy to revisit, while progress stays
+            visible in a quieter, secondary role.
           </p>
         </div>
-        <div className="mx-auto mt-6 grid max-w-[760px] gap-4">
-          <div className="rounded-[30px] border border-white/10 bg-white/5 p-4">
-            <div className="overflow-hidden rounded-[24px] border border-[#516a51] bg-[#18201c] shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className="block h-auto w-full"
-                aria-label="Coffee tree growth animation"
-              >
-                <source src={coffeeTreeGrowthVideo} type="video/mp4" />
-              </video>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto mt-6 grid w-full max-w-[1120px] gap-4 2xl:grid-cols-[minmax(0,500px)_minmax(0,560px)] 2xl:justify-center">
-          <div className="rounded-[30px] border border-white/10 bg-white/5 p-4 lg:p-5">
-            <div className="rounded-[22px] border border-white/10 bg-[#111714] p-5 lg:p-6">
+        <div className="mx-auto mt-10 grid w-full max-w-[1120px] gap-5 xl:grid-cols-2">
+          <article className="relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6">
+            <div className="pointer-events-none absolute left-8 top-6 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(205,161,110,0.16),transparent_70%)] blur-2xl" />
+            <div className="relative">
               <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
-                Progress snapshot
+                COFFEE CARDS
               </p>
-              <h3 className="mt-3 max-w-[16ch] font-botanical-display text-3xl leading-none text-[#f6ede3] sm:text-[2.2rem]">
+              <h3 className="mt-3 max-w-[13.5ch] font-botanical-display text-[1.82rem] leading-[0.98] text-[#f6ede3] sm:text-[2.08rem]">
+                Reusable reference, without extra noise.
+              </h3>
+              <p className="mt-3 max-w-[24rem] font-botanical-body text-[14px] leading-[1.72] text-white/62 sm:text-[14.5px]">
+                Key ideas stay ready for a quick return, with calm spacing and
+                simple card shapes that feel collectible, clear, and worth
+                keeping close.
+              </p>
+            </div>
+            <div className="relative mt-auto pt-8">
+              <CoffeeCardsConceptPreview />
+            </div>
+          </article>
+
+          <article className="relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6">
+            <div className="pointer-events-none absolute right-8 top-8 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(124,167,118,0.14),transparent_72%)] blur-2xl" />
+            <div className="relative">
+              <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
+                VISIBLE PROGRESS
+              </p>
+              <h3 className="mt-3 max-w-[13.5ch] font-botanical-display text-[1.82rem] leading-[0.98] text-[#f6ede3] sm:text-[2.08rem]">
                 Small lessons, visible growth
               </h3>
-              <p className="mt-3 max-w-[34rem] font-botanical-body text-sm leading-7 text-white/62 sm:text-[15px]">
-                The coffee tree stays secondary to the learning path, but it
-                now remains clearly visible as a calm metaphor for steady
-                progress.
+              <p className="mt-3 max-w-[24rem] font-botanical-body text-[14px] leading-[1.72] text-white/62 sm:text-[14.5px]">
+                Progress stays easy to notice, giving the learning path a calm
+                sense of steady momentum.
               </p>
-              <div className="mt-5">
-                <ProgressPreview dark />
+            </div>
+            <div className="mt-auto pt-8">
+              <div className="rounded-[28px] border border-[#36453c] bg-[linear-gradient(180deg,rgba(20,27,23,0.95),rgba(15,21,17,0.91))] p-4 shadow-[0_20px_52px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5">
+                <ProgressPreview dark theme="forest" compact />
               </div>
             </div>
-          </div>
-
-          <div className="rounded-[30px] border border-white/10 bg-white/5 p-4 lg:p-5">
-            <div className="mx-auto max-w-[720px] text-center">
-              <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
-                Coffee Cards
-              </p>
-              <h3 className="mt-3 font-botanical-display text-3xl leading-none text-[#f6ede3] sm:text-[2.2rem]">
-                Keep the essentials close.
-              </h3>
-            </div>
-            <div className="mx-auto mt-5 max-w-[720px]">
-              <CoffeeCardsPreview dark />
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </div>

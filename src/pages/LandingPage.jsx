@@ -90,7 +90,7 @@ export function LandingPage() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
       <ScrollBranchBackdrop />
       {/* <ScrollBranchBackdropLegacy /> */}
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-4 sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-14 pt-4 sm:px-8 sm:pb-16 lg:px-10 lg:pb-[5.6rem]">
         <SiteHeader />
 
         <section className="relative grid gap-8 pt-1 pb-2 md:pt-4 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-9 lg:pt-8 lg:pb-4">
@@ -266,7 +266,7 @@ export function LandingPage() {
 
         <section
           id="waitlist-five"
-          className="rise-in rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-10 sm:px-8 lg:px-10"
+          className="rise-in rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8"
         >
           <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
             <SectionTag dark>EARLY ACCESS</SectionTag>
@@ -289,7 +289,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <div className="mt-6 border-t border-white/10">
+        <div className="mt-4 border-t border-white/10 sm:mt-5">
           <SiteFooter dark />
         </div>
       </div>
