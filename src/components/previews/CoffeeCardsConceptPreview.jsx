@@ -1,4 +1,4 @@
-import { landingPageCoffeeCards } from "../../data/landingPageContent";
+import { landingPageCoffeeCards } from "../../data/content";
 
 const conceptualCardOffsets = [
   "left-3 top-10 rotate-[-8deg] opacity-60 sm:left-6",
@@ -23,7 +23,9 @@ export function CoffeeCardsConceptPreview() {
             className={[
               "absolute w-[calc(100%-1.5rem)] max-w-[18rem] rounded-[28px] border border-[#e5d0b5]/16 bg-[linear-gradient(180deg,rgba(52,38,29,0.94),rgba(28,20,15,0.97))] p-4 shadow-[0_22px_46px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(229,208,181,0.03)] backdrop-blur-sm sm:p-5",
               conceptualCardOffsets[index],
-              isFeatured ? "border-[#d0a16e]/28 shadow-[0_24px_52px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(229,208,181,0.04)] sm:max-w-[22rem]" : "",
+              isFeatured
+                ? "border-[#d0a16e]/28 shadow-[0_24px_52px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(229,208,181,0.04)] sm:max-w-[22rem]"
+                : "",
             ].join(" ")}
           >
             <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-[#d3b28b]">

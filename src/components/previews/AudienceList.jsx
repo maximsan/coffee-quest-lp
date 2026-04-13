@@ -1,4 +1,4 @@
-import { landingPageAudiences } from "../../data/landingPageContent";
+import { landingPageAudiences } from "../../data/content";
 
 export function AudienceList({ dark = false, theme = "default" }) {
   const forestDark = dark && theme === "forest";

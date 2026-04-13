@@ -56,7 +56,7 @@ export function HeroCoffeeTreeGraphic() {
               [180, 106, 158, "#7ea866", 0.9, "round", "left"],
             ].map(([x, y, angle, fill, size, form, direction]) => (
               <SoftLeaf
-                key={`${x}-${y}`}
+                key={`${x}-${y}-${angle}`}
                 x={x}
                 y={y}
                 angle={angle}

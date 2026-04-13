@@ -1,5 +1,5 @@
 import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
-import { landingPageValueProps } from "../../data/landingPageContent";
+import { landingPageValueProps } from "../../data/content";
 import { CoffeeCardsConceptPreview } from "../previews/CoffeeCardsConceptPreview";
 import { AudienceList } from "../previews/AudienceList";
 import { ProgressPreview } from "../previews/ProgressPreview";
@@ -7,12 +7,17 @@ import { SectionTag } from "../shared/SectionTag";
 
 export function LandingPageSections() {
   const featuredValue = landingPageValueProps.find((item) => item.featured);
-  const supportingValues = landingPageValueProps.filter((item) => !item.featured);
+  const supportingValues = landingPageValueProps.filter(
+    (item) => !item.featured,
+  );
   const accentValueTitle = "Progress you can see";
 
   return (
-    <div className="grid gap-6">
-      <div className="rise-in overflow-hidden rounded-[36px] border border-[#304236] bg-[linear-gradient(135deg,rgba(124,167,118,0.12),rgba(255,255,255,0.03))] p-7 sm:p-8 lg:p-9">
+    <div data-testid="landing-value-sections" className="grid gap-6">
+      <div
+        data-testid="landing-why-it-sticks"
+        className="rise-in overflow-hidden rounded-[36px] border border-[#304236] bg-[linear-gradient(135deg,rgba(124,167,118,0.12),rgba(255,255,255,0.03))] p-7 sm:p-8 lg:p-9"
+      >
         <div className="mx-auto max-w-[700px] text-center">
           <SectionTag dark>WHY IT STICKS</SectionTag>
           <h2 className="mt-5 font-botanical-display text-[clamp(2.6rem,5vw,4.2rem)] leading-[0.94] text-[#f6ede3]">
@@ -93,7 +98,10 @@ export function LandingPageSections() {
         </div>
       </div>
 
-      <div className="rise-in rounded-[36px] border border-white/10 bg-white/5 p-7">
+      <div
+        data-testid="landing-who-its-for"
+        className="rise-in rounded-[36px] border border-white/10 bg-white/5 p-7"
+      >
         <div className="mx-auto max-w-[760px] text-center">
           <SectionTag dark>Who it&apos;s for</SectionTag>
           <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
@@ -105,7 +113,10 @@ export function LandingPageSections() {
         </div>
       </div>
 
-      <div className="rise-in rounded-[36px] border border-white/10 bg-[#101512] p-7">
+      <div
+        data-testid="landing-progress-and-recall"
+        className="rise-in rounded-[36px] border border-white/10 bg-[#101512] p-7"
+      >
         <div className="mx-auto max-w-[700px] text-center">
           <SectionTag dark>PROGRESS AND RECALL</SectionTag>
           <h2 className="mx-auto mt-5 max-w-[13.5ch] font-botanical-display text-[2.35rem] leading-[0.96] text-[#f6ede3] sm:text-[2.95rem]">

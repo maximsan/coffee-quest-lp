@@ -1,4 +1,4 @@
-import { landingPageLessonBullets } from "../../data/landingPageContent";
+import { landingPageLessonBullets } from "../../data/content";
 
 export function LessonPreview({
   dark = false,
