@@ -16,16 +16,21 @@ export function useScrollBranchBackdrop() {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frameId = 0;
+    let currentProgress = 0;
+    let targetProgress = 0;
+    let isAnimating = false;
 
     const applyProgress = (progress) => {
-      const trunkReveal = clamp((progress - 0.03) / 0.16, 0, 1);
-      const branchOneReveal = clamp((progress - 0.16) / 0.12, 0, 1);
-      const branchTwoReveal = clamp((progress - 0.28) / 0.12, 0, 1);
-      const branchThreeReveal = clamp((progress - 0.4) / 0.12, 0, 1);
-      const branchFourReveal = clamp((progress - 0.52) / 0.12, 0, 1);
-      const fadeIn = clamp(progress / 0.14, 0, 1);
-      const fadeOut = clamp((0.9 - progress) / 0.2, 0, 1);
-      const opacity = Math.min(fadeIn, fadeOut) * 0.46;
+      const trunkReveal = clamp((progress - 0.04) / 0.42, 0, 1);
+      const branchOneReveal = clamp((progress - 0.2) / 0.2, 0, 1);
+      const branchTwoReveal = clamp((progress - 0.34) / 0.2, 0, 1);
+      const branchThreeReveal = clamp((progress - 0.48) / 0.22, 0, 1);
+      const branchFourReveal = clamp((progress - 0.62) / 0.22, 0, 1);
+      const fadeIn = clamp((progress - 0.02) / 0.22, 0, 1);
+      const fadeOut = clamp((0.96 - progress) / 0.22, 0, 1);
+      const opacity = Math.min(fadeIn, fadeOut);
+      const trunkOpacity = opacity * 0.24;
+      const branchesOpacity = opacity * 0.11;
 
       element.style.setProperty("--branch-reveal-trunk", trunkReveal.toFixed(3));
       element.style.setProperty("--branch-reveal-one", branchOneReveal.toFixed(3));
@@ -38,14 +43,18 @@ export function useScrollBranchBackdrop() {
         "--branch-reveal-four",
         branchFourReveal.toFixed(3),
       );
-      element.style.setProperty("--branch-opacity", opacity.toFixed(3));
+      element.style.setProperty("--branch-opacity-trunk", trunkOpacity.toFixed(3));
+      element.style.setProperty(
+        "--branch-opacity-branches",
+        branchesOpacity.toFixed(3),
+      );
       element.style.setProperty(
         "--branch-lift-trunk",
-        `${230 - progress * 280}px`,
+        `${120 - progress * 90}px`,
       );
       element.style.setProperty(
         "--branch-drift-trunk",
-        `${-4 + progress * 8}px`,
+        `${-1.5 + progress * 3}px`,
       );
     };
 
@@ -55,34 +64,67 @@ export function useScrollBranchBackdrop() {
       element.style.setProperty("--branch-reveal-two", "1");
       element.style.setProperty("--branch-reveal-three", "1");
       element.style.setProperty("--branch-reveal-four", "1");
-      element.style.setProperty("--branch-opacity", "0.12");
+      element.style.setProperty("--branch-opacity-trunk", "0.1");
+      element.style.setProperty("--branch-opacity-branches", "0.045");
       element.style.setProperty("--branch-lift-trunk", "0px");
       element.style.setProperty("--branch-drift-trunk", "0px");
     };
 
+    const readProgress = () => {
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      return maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    };
+
+    const stopAnimation = () => {
+      isAnimating = false;
+      cancelAnimationFrame(frameId);
+    };
+
+    const animate = () => {
+      currentProgress += (targetProgress - currentProgress) * 0.08;
+      if (Math.abs(targetProgress - currentProgress) < 0.0015) {
+        currentProgress = targetProgress;
+      }
+
+      applyProgress(clamp(currentProgress, 0, 1));
+
+      if (Math.abs(targetProgress - currentProgress) < 0.0015) {
+        stopAnimation();
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(animate);
+    };
+
     const update = () => {
       if (reduceMotion.matches) {
+        stopAnimation();
         applyReducedMotionState();
         return;
       }
 
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-      applyProgress(clamp(progress, 0, 1));
+      targetProgress = clamp(readProgress(), 0, 1);
+
+      if (!isAnimating) {
+        isAnimating = true;
+        frameId = window.requestAnimationFrame(animate);
+      }
     };
 
     const onScroll = () => {
-      cancelAnimationFrame(frameId);
-      frameId = window.requestAnimationFrame(update);
+      update();
     };
+
+    currentProgress = clamp(readProgress(), 0, 1);
+    targetProgress = currentProgress;
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
     return () => {
-      cancelAnimationFrame(frameId);
+      stopAnimation();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };

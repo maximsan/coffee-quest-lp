@@ -8,12 +8,18 @@ import { TreePreview } from "../components/previews/TreePreview";
 import { LandingPageSections } from "../components/sections/LandingPageSections";
 import { SectionTag } from "../components/shared/SectionTag";
 import { ScrollBranchBackdrop } from "../components/tree/ScrollBranchBackdrop";
+import { ScrollBranchBackdropLegacy } from "../components/tree/ScrollBranchBackdropLegacy";
 import { landingPageHowItWorksSteps } from "../data/landingPageContent";
 
 function StepIcon({ type }) {
   if (type === "bean") {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        fill="none"
+        aria-hidden="true"
+      >
         <path
           d="M15.8 4.7c3.4 2 4.4 6.2 2.4 9.4-2.3 3.7-7.7 6.1-11 4.1-3.2-1.9-3.6-7 .2-10.8 3.1-3.2 6.1-4.6 8.4-2.7Z"
           stroke="currentColor"
@@ -31,7 +37,12 @@ function StepIcon({ type }) {
 
   if (type === "spark") {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        fill="none"
+        aria-hidden="true"
+      >
         <path
           d="M12 4.5 13.9 9l4.6 1.9-4.6 1.9L12 17.5l-1.9-4.7L5.5 10.9 10.1 9 12 4.5Z"
           stroke="currentColor"
@@ -78,6 +89,7 @@ export function LandingPage() {
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
       <ScrollBranchBackdrop />
+      {/* <ScrollBranchBackdropLegacy /> */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-4 sm:px-8 lg:px-10">
         <SiteHeader />
 
@@ -139,7 +151,8 @@ export function LandingPage() {
                 From one small lesson to real coffee confidence
               </h2>
               <p className="mt-4 font-botanical-body text-base leading-7 text-white/74">
-                Learn one practical idea, try it immediately, and build confidence step by step.
+                Learn one practical idea, try it immediately, and build
+                confidence step by step.
               </p>
             </div>
             <div className="relative mx-auto mt-10 max-w-[900px]">
@@ -155,14 +168,26 @@ export function LandingPage() {
                   aria-hidden="true"
                 >
                   <defs>
-                    <linearGradient id="coffee-journey" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <linearGradient
+                      id="coffee-journey"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
                       <stop offset="0%" stopColor="rgba(205,161,110,0)" />
                       <stop offset="18%" stopColor="rgba(205,161,110,0.38)" />
                       <stop offset="50%" stopColor="rgba(126,169,117,0.34)" />
                       <stop offset="82%" stopColor="rgba(205,161,110,0.34)" />
                       <stop offset="100%" stopColor="rgba(205,161,110,0)" />
                     </linearGradient>
-                    <filter id="coffee-journey-glow" x="-10%" y="-120%" width="120%" height="340%">
+                    <filter
+                      id="coffee-journey-glow"
+                      x="-10%"
+                      y="-120%"
+                      width="120%"
+                      height="340%"
+                    >
                       <feGaussianBlur stdDeviation="5" />
                     </filter>
                   </defs>
@@ -182,9 +207,24 @@ export function LandingPage() {
                     strokeLinecap="round"
                     fill="none"
                   />
-                  <circle cx="336" cy="26" r="4.5" fill="rgba(217,188,151,0.85)" />
-                  <circle cx="622" cy="92" r="4.5" fill="rgba(157,198,142,0.7)" />
-                  <circle cx="976" cy="44" r="4.5" fill="rgba(217,188,151,0.78)" />
+                  <circle
+                    cx="336"
+                    cy="26"
+                    r="4.5"
+                    fill="rgba(217,188,151,0.85)"
+                  />
+                  <circle
+                    cx="622"
+                    cy="92"
+                    r="4.5"
+                    fill="rgba(157,198,142,0.7)"
+                  />
+                  <circle
+                    cx="976"
+                    cy="44"
+                    r="4.5"
+                    fill="rgba(217,188,151,0.78)"
+                  />
                 </svg>
               </div>
               <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
@@ -194,7 +234,11 @@ export function LandingPage() {
                     className={[
                       "relative rounded-[28px] border border-white/7 bg-[linear-gradient(180deg,rgba(24,32,28,0.82),rgba(16,22,19,0.64))] px-5 py-5 text-center shadow-[0_18px_46px_rgba(0,0,0,0.18)]",
                       "min-h-[222px] sm:px-6 sm:py-6 lg:min-h-[246px]",
-                      index === 1 ? "lg:translate-y-3" : index === 2 ? "lg:translate-y-1" : "",
+                      index === 1
+                        ? "lg:translate-y-3"
+                        : index === 2
+                          ? "lg:translate-y-1"
+                          : "",
                     ].join(" ")}
                   >
                     <div className="mx-auto flex max-w-[232px] flex-col items-center">
