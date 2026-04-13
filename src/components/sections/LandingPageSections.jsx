@@ -4,11 +4,8 @@ import { AudienceList } from "../previews/AudienceList";
 import { CoffeeCardsPreview } from "../previews/CoffeeCardsPreview";
 import { ProgressPreview } from "../previews/ProgressPreview";
 import { SectionTag } from "../shared/SectionTag";
-import { BeginnerGroveVariants } from "../tree/BeginnerGroveVariants";
 
 export function LandingPageSections() {
-  const showTreeDirections = false;
-
   return (
     <div className="grid gap-6">
       <div className="rise-in rounded-[36px] border border-[#304236] bg-[linear-gradient(135deg,rgba(124,167,118,0.12),rgba(255,255,255,0.03))] p-7">
@@ -80,20 +77,6 @@ export function LandingPageSections() {
               </video>
             </div>
           </div>
-
-          {showTreeDirections && (
-            <div className="rounded-[30px] border border-white/10 bg-white/5 p-4 lg:p-5">
-              <div className="mx-auto max-w-[620px] text-center">
-                <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
-                  Tree directions
-                </p>
-                <h3 className="mt-3 font-botanical-display text-3xl leading-none text-[#f6ede3]">
-                  Compare four `Beginner grove` variants.
-                </h3>
-              </div>
-              <BeginnerGroveVariants />
-            </div>
-          )}
         </div>
 
         <div className="mx-auto mt-6 grid w-full max-w-[1120px] gap-4 2xl:grid-cols-[minmax(0,500px)_minmax(0,560px)] 2xl:justify-center">

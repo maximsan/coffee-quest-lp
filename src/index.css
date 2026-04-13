@@ -257,37 +257,6 @@ input {
   stroke-dashoffset: calc(100 - (var(--branch-reveal-four) * 100));
 }
 
-.grove-card {
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 260ms ease;
-}
-
-.grove-card:hover {
-  transform: translateY(-5px);
-}
-
-.grove-grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.14;
-  background-image: radial-gradient(rgba(72, 44, 25, 0.22) 0.7px, transparent 0.7px);
-  background-size: 9px 9px;
-  pointer-events: none;
-}
-
-.grove-bob {
-  animation: grove-bob 4.8s ease-in-out infinite;
-}
-
-.grove-halo {
-  animation: grove-pulse 4.6s ease-in-out infinite;
-}
-
 .grove-tree-sway {
   transform-origin: 50% 82%;
   animation: grove-tree-sway 4.8s ease-in-out infinite;
@@ -316,17 +285,6 @@ input {
   animation: grove-tree-fruit-bob 3.4s ease-in-out infinite;
 }
 
-.grove-ritual-glow::before {
-  content: '';
-  position: absolute;
-  inset: -20% 12% auto;
-  height: 120px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(216, 184, 135, 0.12), transparent 68%);
-  filter: blur(18px);
-  pointer-events: none;
-}
-
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -336,30 +294,6 @@ input {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes grove-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes grove-pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: translateX(-50%) scale(0.96);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: translateX(-50%) scale(1.04);
   }
 }
 
@@ -433,9 +367,6 @@ input {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grove-card,
-  .grove-bob,
-  .grove-halo,
   .branch-backdrop__trunk,
   .grove-tree-sway,
   .grove-tree-sway-slow,
