@@ -1,28 +1,53 @@
-export const landingPageFeatures = [
+export const landingPageHowItWorksSteps = [
   {
-    title: 'Short lessons',
+    label: 'STEP 1',
+    title: 'Learn one useful concept',
     description:
-      'Learn one practical coffee concept at a time, so the basics feel clear instead of overwhelming.',
+      'Start with a short lesson on a practical coffee topic, from beans and roast to brewing and taste.',
+    icon: 'bean',
   },
   {
-    title: 'Quick mini-games',
+    label: 'STEP 2',
+    title: 'Try it right away',
     description:
-      'Reinforce what you just learned through small interactions that help key ideas stick.',
+      'Use a quick mini-game or interaction to lock in the idea before moving on.',
+    icon: 'spark',
   },
   {
-    title: 'Structured learning path',
+    label: 'STEP 3',
+    title: 'Watch your progress grow',
     description:
-      'Move from beans and roast to brewing and taste in a logical order, without getting lost in random content.',
+      'Collect Coffee Cards, move along the path, and grow your coffee tree as you learn.',
+    icon: 'sprout',
+  },
+]
+
+export const landingPageValueProps = [
+  {
+    title: '2-minute lessons',
+    description:
+      'Small lessons make coffee easier to learn without feeling overwhelming.',
   },
   {
-    title: 'Coffee Cards',
+    title: 'Practice, not just reading',
     description:
-      'Save important ideas in a visual format you can revisit anytime.',
+      'Quick interactions help key ideas stick right after you learn them.',
   },
   {
-    title: 'Coffee tree growth',
+    title: 'A path you can follow',
     description:
-      'Turn progress into something visible and motivating as your understanding grows.',
+      'Move through coffee topics in a clear order instead of jumping through random tips.',
+    featured: true,
+  },
+  {
+    title: 'Coffee Cards that stay with you',
+    description:
+      'Save important ideas in a format you can revisit anytime.',
+  },
+  {
+    title: 'Progress you can see',
+    description:
+      'Your coffee tree grows with your understanding, turning learning into visible momentum.',
   },
 ]
 

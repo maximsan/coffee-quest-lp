@@ -8,32 +8,70 @@ import { TreePreview } from "../components/previews/TreePreview";
 import { LandingPageSections } from "../components/sections/LandingPageSections";
 import { SectionTag } from "../components/shared/SectionTag";
 import { ScrollBranchBackdrop } from "../components/tree/ScrollBranchBackdrop";
+import { landingPageHowItWorksSteps } from "../data/landingPageContent";
+
+function StepIcon({ type }) {
+  if (type === "bean") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+        <path
+          d="M15.8 4.7c3.4 2 4.4 6.2 2.4 9.4-2.3 3.7-7.7 6.1-11 4.1-3.2-1.9-3.6-7 .2-10.8 3.1-3.2 6.1-4.6 8.4-2.7Z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+        />
+        <path
+          d="M10.4 6.9c1.2 1.8 1.2 5-.4 8.7"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
+  if (type === "spark") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+        <path
+          d="M12 4.5 13.9 9l4.6 1.9-4.6 1.9L12 17.5l-1.9-4.7L5.5 10.9 10.1 9 12 4.5Z"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M18.2 4.8v2.1M19.3 5.9h-2.1M5.8 16.8v2.1M6.9 17.9H4.8"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+      <path
+        d="M12 18.5v-6.8M12 11.7c0-3.1 1.6-5 4.7-5.7 0 3.1-1.4 5.3-4.7 5.7Zm0 0c0-2.5-1.2-4-3.9-4.6 0 2.6 1.1 4.3 3.9 4.6Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.1 18.5h5.8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 export function LandingPage() {
   const heroLessonItems = [
     "What bitterness usually means",
     "How over-extraction affects flavor",
     "How grind size affects taste",
-  ];
-  const howItWorksSteps = [
-    {
-      label: "Step 1",
-      title: "Learn one clear idea",
-      description:
-        "Start with one short lesson on a practical coffee topic, from beans and roast to brewing and taste.",
-    },
-    {
-      label: "Step 2",
-      title: "Practice it right away",
-      description:
-        "Use a quick mini-game or interaction to help the concept stick before moving on.",
-    },
-    {
-      label: "Step 3",
-      title: "See your progress grow",
-      description:
-        "Collect Coffee Cards, move through the learning path, and watch your coffee tree grow over time.",
-    },
   ];
 
   return (
@@ -94,42 +132,49 @@ export function LandingPage() {
         </section>
 
         <section className="mx-auto grid w-full max-w-[920px] gap-6 pt-4 pb-10 md:pt-6 lg:pt-8">
-          <div className="rise-in rounded-[36px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
-            <div className="mx-auto max-w-[760px] text-center">
+          <div className="rise-in overflow-hidden rounded-[36px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-7 backdrop-blur-xl sm:p-8 lg:p-9">
+            <div className="mx-auto max-w-[720px] text-center">
               <SectionTag dark>HOW IT WORKS</SectionTag>
               <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
-                A clearer path from first lesson to real coffee confidence.
+                From one small lesson to real coffee confidence
               </h2>
-              <p className="mt-4 font-botanical-body text-base leading-7 text-white/78">
-                Coffee Quest keeps learning simple: learn one idea, try it right
-                away, and watch your confidence grow with every step.
+              <p className="mt-4 font-botanical-body text-base leading-7 text-white/74">
+                Learn one practical idea, try it immediately, and build confidence step by step.
               </p>
             </div>
-            <div className="mx-auto mt-8 grid max-w-[840px] gap-4 min-[781px]:grid-cols-2 lg:grid-cols-3">
-              {howItWorksSteps.map((step, index) => (
+            <div className="relative mx-auto mt-10 max-w-[880px]">
+              <div className="pointer-events-none absolute bottom-8 left-1/2 top-8 w-px -translate-x-1/2 bg-[linear-gradient(180deg,rgba(229,194,147,0),rgba(229,194,147,0.34),rgba(135,177,125,0.24),rgba(135,177,125,0))] lg:hidden" />
+              <div className="pointer-events-none absolute left-12 right-12 top-[7.2rem] hidden h-px bg-[linear-gradient(90deg,rgba(210,173,125,0),rgba(210,173,125,0.3),rgba(129,171,115,0.3),rgba(210,173,125,0.22),rgba(210,173,125,0))] lg:block" />
+              <div className="pointer-events-none absolute left-[14%] right-[14%] top-[6.35rem] hidden h-8 lg:block">
+                <div className="h-full w-full bg-[radial-gradient(circle_at_14%_50%,rgba(210,173,125,0.22),transparent_18%),radial-gradient(circle_at_50%_50%,rgba(123,166,112,0.2),transparent_18%),radial-gradient(circle_at_86%_50%,rgba(210,173,125,0.18),transparent_18%)] blur-xl" />
+              </div>
+              <div className="grid gap-5 lg:grid-cols-3 lg:gap-6">
+              {landingPageHowItWorksSteps.map((step, index) => (
                 <article
                   key={step.title}
                   className={[
-                    "rounded-[28px] border border-white/10 bg-[#111714] p-5 text-center",
-                    "min-[781px]:flex min-[781px]:min-h-[280px] min-[781px]:justify-center min-[781px]:p-6",
-                    index === howItWorksSteps.length - 1
-                      ? "min-[781px]:col-span-2 min-[781px]:mx-auto min-[781px]:w-full min-[781px]:max-w-[408px] lg:col-span-1 lg:max-w-none"
-                      : "",
+                    "relative rounded-[30px] border border-white/8 bg-[linear-gradient(180deg,rgba(24,32,28,0.86),rgba(16,22,19,0.7))] px-6 py-6 text-center shadow-[0_20px_55px_rgba(0,0,0,0.2)]",
+                    "min-h-[250px] sm:px-7 sm:py-7 lg:min-h-[285px]",
+                    index === 1 ? "lg:translate-y-4" : "",
                   ].join(" ")}
                 >
-                  <div className="min-[781px]:max-w-[260px]">
+                  <div className="mx-auto flex max-w-[248px] flex-col items-center">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.16),rgba(255,255,255,0.05))] text-[#e5c293] shadow-[0_8px_24px_rgba(205,161,110,0.16)]">
+                      <StepIcon type={step.icon} />
+                    </div>
                     <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
                       {step.label}
                     </p>
-                    <h3 className="mt-4 font-botanical-display text-3xl leading-none text-[#f7efe4] min-[781px]:text-[2.15rem]">
+                    <h3 className="mt-4 font-botanical-display text-[2rem] leading-[0.95] text-[#f7efe4] sm:text-[2.15rem]">
                       {step.title}
                     </h3>
-                    <p className="mt-3 font-botanical-body text-base leading-7 text-white/74">
+                    <p className="mt-3 max-w-[24ch] font-botanical-body text-[15px] leading-7 text-white/70">
                       {step.description}
                     </p>
                   </div>
                 </article>
               ))}
+              </div>
             </div>
           </div>
 
