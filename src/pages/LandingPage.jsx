@@ -142,38 +142,77 @@ export function LandingPage() {
                 Learn one practical idea, try it immediately, and build confidence step by step.
               </p>
             </div>
-            <div className="relative mx-auto mt-10 max-w-[880px]">
-              <div className="pointer-events-none absolute bottom-8 left-1/2 top-8 w-px -translate-x-1/2 bg-[linear-gradient(180deg,rgba(229,194,147,0),rgba(229,194,147,0.34),rgba(135,177,125,0.24),rgba(135,177,125,0))] lg:hidden" />
-              <div className="pointer-events-none absolute left-12 right-12 top-[7.2rem] hidden h-px bg-[linear-gradient(90deg,rgba(210,173,125,0),rgba(210,173,125,0.3),rgba(129,171,115,0.3),rgba(210,173,125,0.22),rgba(210,173,125,0))] lg:block" />
-              <div className="pointer-events-none absolute left-[14%] right-[14%] top-[6.35rem] hidden h-8 lg:block">
-                <div className="h-full w-full bg-[radial-gradient(circle_at_14%_50%,rgba(210,173,125,0.22),transparent_18%),radial-gradient(circle_at_50%_50%,rgba(123,166,112,0.2),transparent_18%),radial-gradient(circle_at_86%_50%,rgba(210,173,125,0.18),transparent_18%)] blur-xl" />
+            <div className="relative mx-auto mt-10 max-w-[900px]">
+              <div className="pointer-events-none absolute bottom-6 left-1/2 top-10 w-px -translate-x-1/2 lg:hidden">
+                <div className="h-full w-full bg-[linear-gradient(180deg,rgba(214,177,128,0),rgba(214,177,128,0.4),rgba(122,165,112,0.28),rgba(214,177,128,0))]" />
+                <div className="absolute inset-x-[-8px] inset-y-0 bg-[radial-gradient(circle_at_center,rgba(205,161,110,0.22),transparent_62%)] blur-md" />
               </div>
-              <div className="grid gap-5 lg:grid-cols-3 lg:gap-6">
-              {landingPageHowItWorksSteps.map((step, index) => (
-                <article
-                  key={step.title}
-                  className={[
-                    "relative rounded-[30px] border border-white/8 bg-[linear-gradient(180deg,rgba(24,32,28,0.86),rgba(16,22,19,0.7))] px-6 py-6 text-center shadow-[0_20px_55px_rgba(0,0,0,0.2)]",
-                    "min-h-[250px] sm:px-7 sm:py-7 lg:min-h-[285px]",
-                    index === 1 ? "lg:translate-y-4" : "",
-                  ].join(" ")}
+              <div className="pointer-events-none absolute inset-x-[8%] top-[5.75rem] hidden h-[4.25rem] lg:block">
+                <svg
+                  viewBox="0 0 1000 120"
+                  preserveAspectRatio="none"
+                  className="h-full w-full"
+                  aria-hidden="true"
                 >
-                  <div className="mx-auto flex max-w-[248px] flex-col items-center">
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.16),rgba(255,255,255,0.05))] text-[#e5c293] shadow-[0_8px_24px_rgba(205,161,110,0.16)]">
-                      <StepIcon type={step.icon} />
+                  <defs>
+                    <linearGradient id="coffee-journey" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="rgba(205,161,110,0)" />
+                      <stop offset="18%" stopColor="rgba(205,161,110,0.38)" />
+                      <stop offset="50%" stopColor="rgba(126,169,117,0.34)" />
+                      <stop offset="82%" stopColor="rgba(205,161,110,0.34)" />
+                      <stop offset="100%" stopColor="rgba(205,161,110,0)" />
+                    </linearGradient>
+                    <filter id="coffee-journey-glow" x="-10%" y="-120%" width="120%" height="340%">
+                      <feGaussianBlur stdDeviation="5" />
+                    </filter>
+                  </defs>
+                  <path
+                    d="M24 80C165 78 216 26 336 26C452 26 482 92 622 92C768 92 820 44 976 44"
+                    stroke="url(#coffee-journey)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    fill="none"
+                    filter="url(#coffee-journey-glow)"
+                  />
+                  <path
+                    d="M24 80C165 78 216 26 336 26C452 26 482 92 622 92C768 92 820 44 976 44"
+                    stroke="rgba(238,223,203,0.18)"
+                    strokeWidth="1.15"
+                    strokeDasharray="2 12"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <circle cx="336" cy="26" r="4.5" fill="rgba(217,188,151,0.85)" />
+                  <circle cx="622" cy="92" r="4.5" fill="rgba(157,198,142,0.7)" />
+                  <circle cx="976" cy="44" r="4.5" fill="rgba(217,188,151,0.78)" />
+                </svg>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
+                {landingPageHowItWorksSteps.map((step, index) => (
+                  <article
+                    key={step.title}
+                    className={[
+                      "relative rounded-[28px] border border-white/7 bg-[linear-gradient(180deg,rgba(24,32,28,0.82),rgba(16,22,19,0.64))] px-5 py-5 text-center shadow-[0_18px_46px_rgba(0,0,0,0.18)]",
+                      "min-h-[222px] sm:px-6 sm:py-6 lg:min-h-[246px]",
+                      index === 1 ? "lg:translate-y-3" : index === 2 ? "lg:translate-y-1" : "",
+                    ].join(" ")}
+                  >
+                    <div className="mx-auto flex max-w-[232px] flex-col items-center">
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#cda16e]/20 bg-[linear-gradient(180deg,rgba(205,161,110,0.14),rgba(255,255,255,0.04))] text-[#e5c293] shadow-[0_7px_20px_rgba(205,161,110,0.14)]">
+                        <StepIcon type={step.icon} />
+                      </div>
+                      <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
+                        {step.label}
+                      </p>
+                      <h3 className="mt-3 font-botanical-display text-[1.78rem] leading-[0.96] text-[#f7efe4] sm:text-[1.95rem]">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2.5 max-w-[23ch] font-botanical-body text-[14px] leading-6 text-white/68">
+                        {step.description}
+                      </p>
                     </div>
-                    <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
-                      {step.label}
-                    </p>
-                    <h3 className="mt-4 font-botanical-display text-[2rem] leading-[0.95] text-[#f7efe4] sm:text-[2.15rem]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 max-w-[24ch] font-botanical-body text-[15px] leading-7 text-white/70">
-                      {step.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ))}
               </div>
             </div>
           </div>
