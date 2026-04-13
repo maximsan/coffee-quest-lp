@@ -15,10 +15,10 @@
 
 ## Validation
 
-- Run `npm run build` after meaningful UI changes.
-- Run `npm run lint` after code changes.
-- Run `npm run test:visual` for landing-page changes that can affect layout or styling.
-- Run `npm run test:visual:update` only when the new visual result is intentionally accepted.
+- Run `pnpm build` after meaningful UI changes.
+- Run `pnpm lint` after code changes.
+- Run `pnpm test:visual` for landing-page changes that can affect layout or styling.
+- Run `pnpm test:visual:update` only when the new visual result is intentionally accepted.
 
 ## Playwright
 
