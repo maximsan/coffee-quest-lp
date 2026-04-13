@@ -2,8 +2,8 @@ export function WaitlistForm({
   dark = false,
   compact = false,
   theme = "default",
-  placeholder = "Email address",
-  buttonLabel = "Join the waitlist",
+  placeholder = "Enter your email",
+  buttonLabel = "Join waitlist",
   note,
 }) {
   const forestDark = dark && theme === "forest";
@@ -58,10 +58,10 @@ export function WaitlistForm({
         <p
           className={
             forestDark
-              ? "mt-2 text-center text-[12px] text-[#9eb39c]"
+              ? "mt-1.5 px-1 text-center text-[12px] text-[#b5c6b2]"
               : dark
-                ? "mt-2 text-center text-[12px] text-white/56"
-                : "mt-2 text-center text-[12px] text-[#7a6659]"
+                ? "mt-1.5 px-1 text-center text-[12px] text-white/66"
+                : "mt-1.5 px-1 text-center text-[12px] text-[#7a6659]"
           }
         >
           {note}

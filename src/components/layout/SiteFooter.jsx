@@ -7,7 +7,7 @@ export function SiteFooter({ dark = false }) {
       ].join(" ")}
     >
       <p>
-        Coffee Quest. Learn coffee step by step in just a few minutes a day.
+        Coffee Quest. Learn coffee step by step in a few minutes a day.
       </p>
       <p>Launching soon. Early access for curious beginners.</p>
     </footer>

@@ -38,9 +38,9 @@ export function PhoneMockup({
             <p
               className={
                 forestDark
-                  ? "text-[11px] uppercase tracking-[0.24em] text-[#b3c6b0]"
+                  ? "text-[11px] uppercase tracking-[0.24em] text-[#c0d0bc]"
                   : dark
-                    ? "text-[11px] uppercase tracking-[0.24em] text-white/58"
+                    ? "text-[11px] uppercase tracking-[0.24em] text-[#d4b488]"
                     : "text-[11px] uppercase tracking-[0.24em] text-[#967762]"
               }
             >

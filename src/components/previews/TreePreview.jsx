@@ -23,9 +23,9 @@ export function TreePreview({
           <p
             className={
               forestDark
-                ? "text-[11px] uppercase tracking-[0.24em] text-[#b8cbb5]"
+                ? "text-[11px] uppercase tracking-[0.24em] text-[#c4d4c0]"
                 : dark
-                  ? "text-[11px] uppercase tracking-[0.24em] text-white/62"
+                  ? "text-[11px] uppercase tracking-[0.24em] text-[#d7b98f]"
                   : "text-[11px] uppercase tracking-[0.24em] text-[#8f7460]"
             }
           >
@@ -42,9 +42,9 @@ export function TreePreview({
         <div
           className={
             forestDark
-              ? "text-sm text-[#bfd2bb]"
+              ? "text-sm text-[#cadec7]"
               : dark
-                ? "text-sm text-[#f0c690]"
+                ? "text-sm text-[#f3cea0]"
                 : "text-sm text-[#9c6b40]"
           }
         >

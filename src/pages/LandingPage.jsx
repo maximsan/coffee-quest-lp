@@ -40,17 +40,19 @@ export function LandingPage() {
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
       <ScrollBranchBackdrop />
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-5 sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-5 pb-28 pt-4 sm:px-8 lg:px-10">
         <SiteHeader />
 
-        <section className="relative grid gap-8 pt-4 pb-2 md:pt-10 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-10 lg:pt-16 lg:pb-4">
+        <section className="relative grid gap-8 pt-1 pb-2 md:pt-4 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-9 lg:pt-8 lg:pb-4">
           <div className="rise-in mx-auto flex max-w-[760px] flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
             <SectionTag dark>Structured learning for beginners</SectionTag>
             <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">
               A beginner coffee app that feels clear from the first sip.
             </h1>
             <p className="font-botanical-body max-w-[700px] text-lg leading-8 text-white/80 lg:max-w-xl">
-              Coffee Quest uses short daily lessons, quick mini-games, Coffee Cards, and a growing coffee tree to turn coffee basics into a habit you can actually keep.
+              Coffee Quest uses short daily lessons, quick mini-games, Coffee
+              Cards, and a growing coffee tree to turn coffee basics into a
+              habit you can actually keep.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 font-botanical-body text-sm text-[#dfc39e] lg:justify-start">
               <span>3 min lessons</span>
@@ -73,20 +75,20 @@ export function LandingPage() {
             <div className="absolute inset-x-12 top-10 bottom-8 rounded-[42px] border border-white/10 bg-white/5 blur-3xl lg:inset-8" />
             <div className="relative z-10 w-full rounded-[34px] border border-white/10 bg-white/5 p-4 md:p-5 lg:w-auto lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">
               <div className="mx-auto grid w-fit items-start justify-items-center gap-4 md:grid-cols-[280px_280px] md:gap-5 lg:grid-cols-[280px_280px] lg:gap-4">
-              <div className="flex justify-center self-center">
-                <PhoneMockup dark title="Today" subtitle="Brewing basics">
-                  <LessonPreview dark items={heroLessonItems} />
-                </PhoneMockup>
-              </div>
-              <div className="grid w-[280px] justify-items-center gap-4 pt-0 md:pt-8 lg:pt-10">
-                <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
-                  <TreePreview dark title="Beginner path" />
+                <div className="flex justify-center self-center">
+                  <PhoneMockup dark title="TODAY" subtitle="Brewing basics">
+                    <LessonPreview dark items={heroLessonItems} />
+                  </PhoneMockup>
                 </div>
-                <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
-                  <ProgressPreview dark />
+                <div className="grid w-[280px] justify-items-center gap-4 pt-0 md:pt-8 lg:pt-10">
+                  <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
+                    <TreePreview dark title="Beginner path" />
+                  </div>
+                  <div className="w-full rounded-[30px] border border-white/10 bg-white/5 p-4">
+                    <ProgressPreview dark />
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         </section>
@@ -99,8 +101,8 @@ export function LandingPage() {
                 A clearer path from first lesson to real coffee confidence.
               </h2>
               <p className="mt-4 font-botanical-body text-base leading-7 text-white/78">
-                Coffee Quest keeps learning simple: learn one idea, try it
-                right away, and watch your confidence grow with every step.
+                Coffee Quest keeps learning simple: learn one idea, try it right
+                away, and watch your confidence grow with every step.
               </p>
             </div>
             <div className="mx-auto mt-8 grid max-w-[840px] gap-4 min-[781px]:grid-cols-2 lg:grid-cols-3">
@@ -139,16 +141,22 @@ export function LandingPage() {
           className="rise-in rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-10 sm:px-8 lg:px-10"
         >
           <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
-            <SectionTag dark>Final CTA</SectionTag>
+            <SectionTag dark>EARLY ACCESS</SectionTag>
             <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
-              Join the waitlist and grow your coffee basics from the ground up.
+              Join the waitlist and build real coffee confidence.
             </h2>
             <p className="mt-4 max-w-2xl font-botanical-body text-base leading-7 text-white/68">
-              Coffee Quest is still in phase one, but the first learners can
-              help shape a clearer way into coffee knowledge.
+              Coffee Quest is in early access. <br /> Join the first learners
+              and help shape a clearer, simpler way to learn coffee.
             </p>
             <div className="mt-6 w-full max-w-xl">
-              <WaitlistForm dark compact />
+              <WaitlistForm
+                dark
+                compact
+                placeholder="Enter your email"
+                buttonLabel="Join waitlist"
+                note="Early access. No spam."
+              />
             </div>
           </div>
         </section>

@@ -47,13 +47,18 @@ export function ProgressPreview({ dark = false, theme = "default" }) {
             {stage.name}
           </h4>
           <div
-            className={
+            className={[
+              "min-w-[3.25rem] text-right text-sm font-medium",
               forestDark
-                ? "min-w-[3.25rem] text-right text-sm text-[#c0cfbe]"
+                ? stage.status === "Done"
+                  ? "text-[#d0dccd]"
+                  : "text-[#bccbb9]"
                 : dark
-                  ? "min-w-[3.25rem] text-right text-sm text-white/74"
-                  : "min-w-[3.25rem] text-right text-sm text-[#937d6f]"
-            }
+                  ? stage.status === "Done"
+                    ? "text-[#efc796]"
+                    : "text-[#ece1d4]"
+                  : "text-[#937d6f]",
+            ].join(" ")}
           >
             {stage.status}
           </div>

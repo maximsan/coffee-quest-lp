@@ -15,9 +15,9 @@ export function LessonPreview({
           className={[
             "rounded-[18px] border px-4 py-3 text-sm",
             forestDark
-              ? "border-[#2d3832] bg-[#111714] text-[#e4ece2]"
+              ? "border-[#2d3832] bg-[#111714] text-[#ebf2e9]"
               : dark
-                ? "border-white/10 bg-white/6 text-white/86"
+                ? "border-white/10 bg-white/7 text-[#f2e8dc]"
                 : "border-[#eadfd1] bg-[#f8f1e8] text-[#634f42]",
           ].join(" ")}
         >
@@ -28,9 +28,9 @@ export function LessonPreview({
         <span
           className={
             forestDark
-              ? "text-sm text-[#afc0ad]"
+              ? "text-sm text-[#bfcebc]"
               : dark
-                ? "text-sm text-white/68"
+                ? "text-sm text-[#d8c2a2]"
                 : "text-sm text-[#8b7463]"
           }
         >
