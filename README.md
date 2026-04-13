@@ -1,16 +1,27 @@
-# React + Vite
+# Coffee Quest Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Landing page for Coffee Quest, a beginner-friendly coffee learning app focused on short lessons, mini-games, Coffee Cards, and visible progress.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- Vite
+- Tailwind CSS v4
+- Playwright visual snapshots
 
-## React Compiler
+## Commands
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm lint
+pnpm test:visual
+```
 
-## Expanding the ESLint configuration
+## Visual regression
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Playwright baselines live in `tests/playwright/landing-page.visual.spec.js-snapshots/`.
+
+- Run `pnpm test:visual` to compare against current baselines.
+- Run `pnpm test:visual:update` only when you intentionally accept visual changes.
