@@ -40,6 +40,8 @@ Copy the example file and fill in your values:
 cp .env.example .env
 ```
 
+The Vite dev server (`pnpm dev`) does not run `api/waitlist.js`. To call that route locally, use `vercel dev` as described in section 4.
+
 ### Vercel production
 
 In **Vercel → Project → Settings → Environment Variables** add:
@@ -49,7 +51,27 @@ In **Vercel → Project → Settings → Environment Variables** add:
 | `SUPABASE_URL`        | Your project URL                          |
 | `SUPABASE_SECRET_KEY` | Your **Secret** API key (`sb_secret_...`) |
 
-## 4. Deploy
+## 4. Run the API locally
+
+`pnpm dev` starts **Vite** only; it does not mount `api/waitlist.js`. To hit `POST /api/waitlist` on your machine, run the app with the **Vercel CLI**, which serves serverless routes from the `api/` directory.
+
+1. Install the CLI (once), for example: `pnpm dlx vercel@latest --version` or install `vercel` globally.
+2. From the project root, run `vercel link` if this repo is not already linked to a Vercel project.
+3. Ensure `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set in a root env file Vercel loads for dev (for example `.env` or `.env.local`, same values as in step 3).
+4. Start local dev: `vercel dev`  
+   The CLI prints the URL (often `http://localhost:3000`). The waitlist form and `POST /api/waitlist` both use that origin.
+
+**Smoke-test with curl** (replace the URL if your CLI uses another port):
+
+```bash
+curl -s -X POST http://localhost:3000/api/waitlist \
+  -H "Content-Type: application/json" \
+  -d '{"email":"you@example.com"}'
+```
+
+Leave `company_url` unset or empty for a real signup; a non-empty value is the honeypot and returns a fake success without writing to the database.
+
+## 5. Deploy
 
 Push to your repository. Vercel will automatically detect `api/waitlist.js` as a serverless function and deploy it alongside the Vite frontend.
 
