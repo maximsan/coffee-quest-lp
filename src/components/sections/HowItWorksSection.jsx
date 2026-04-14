@@ -1,4 +1,5 @@
 import { landingPageHowItWorksSteps } from "../../data/content";
+import { cx } from "../../utils/cx";
 import { SectionTag } from "../shared/SectionTag";
 
 function StepIcon({ type }) {
@@ -145,15 +146,12 @@ export function HowItWorksSection() {
           {landingPageHowItWorksSteps.map((step, index) => (
             <article
               key={step.title}
-              className={[
+              className={cx(
                 "relative rounded-[28px] border border-white/7 bg-[linear-gradient(180deg,rgba(24,32,28,0.82),rgba(16,22,19,0.64))] px-5 py-5 text-center shadow-[0_18px_46px_rgba(0,0,0,0.18)]",
                 "min-h-[222px] sm:px-6 sm:py-6 lg:min-h-[246px]",
-                index === 1
-                  ? "lg:translate-y-3"
-                  : index === 2
-                    ? "lg:translate-y-1"
-                    : "",
-              ].join(" ")}
+                index === 1 && "lg:translate-y-3",
+                index === 2 && "lg:translate-y-1",
+              )}
             >
               <div className="mx-auto flex max-w-[232px] flex-col items-center">
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#cda16e]/20 bg-[linear-gradient(180deg,rgba(205,161,110,0.14),rgba(255,255,255,0.04))] text-[#e5c293] shadow-[0_7px_20px_rgba(205,161,110,0.14)]">

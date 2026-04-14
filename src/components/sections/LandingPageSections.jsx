@@ -1,5 +1,6 @@
 import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
 import { landingPageValueProps } from "../../data/content";
+import { cx } from "../../utils/cx";
 import { CoffeeCardsConceptPreview } from "../previews/CoffeeCardsConceptPreview";
 import { AudienceList } from "../previews/AudienceList";
 import { ProgressPreview } from "../previews/ProgressPreview";
@@ -29,12 +30,12 @@ export function LandingPageSections() {
             {supportingValues.slice(0, 2).map((feature) => (
               <article
                 key={feature.title}
-                className={[
+                className={cx(
                   "rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
                   feature.title === accentValueTitle
                     ? "border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.1),rgba(17,23,20,0.92))] px-5 py-5 shadow-[0_22px_54px_rgba(205,161,110,0.1)]"
                     : "border-white/10 px-5 py-4.5",
-                ].join(" ")}
+                )}
               >
                 <h3 className="font-botanical-display text-[1.72rem] leading-[0.98] text-[#f6efe6]">
                   {feature.title}
@@ -79,12 +80,12 @@ export function LandingPageSections() {
             {supportingValues.slice(2).map((feature) => (
               <article
                 key={feature.title}
-                className={[
+                className={cx(
                   "rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
                   feature.title === accentValueTitle
                     ? "border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.1),rgba(17,23,20,0.92))] px-5 py-5 shadow-[0_22px_54px_rgba(205,161,110,0.1)]"
                     : "border-white/10 px-5 py-4.5",
-                ].join(" ")}
+                )}
               >
                 <h3 className="font-botanical-display text-[1.72rem] leading-[0.98] text-[#f6efe6]">
                   {feature.title}

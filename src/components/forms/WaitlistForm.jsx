@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { cx } from "../../utils/cx";
+import { VARIANT, getThemeVariant } from "../../utils/theme";
 
 const MIN_SUBMIT_DELAY_MS = 2000;
 
@@ -10,12 +11,6 @@ const STATUS = {
   SUCCESS: "success",
   DUPLICATE: "duplicate",
   ERROR: "error",
-};
-
-const VARIANT = {
-  FOREST_DARK: "forestDark",
-  DARK: "dark",
-  LIGHT: "light",
 };
 
 const THEME_STYLES = {
@@ -71,12 +66,7 @@ export function WaitlistForm({
     mountedAt.current = Date.now();
   }, []);
 
-  const forestDark = dark && theme === "forest";
-  const variant = forestDark
-    ? VARIANT.FOREST_DARK
-    : dark
-      ? VARIANT.DARK
-      : VARIANT.LIGHT;
+  const variant = getThemeVariant(dark, theme);
   const styles = THEME_STYLES[variant];
 
   const busy = status === STATUS.LOADING;
