@@ -4,6 +4,7 @@ import { cx } from "../../utils/cx";
 import { VARIANT, getThemeVariant } from "../../utils/theme";
 
 const MIN_SUBMIT_DELAY_MS = 2000;
+const SUCCESS_RESET_MS = 3000;
 
 const STATUS = {
   IDLE: "idle",
@@ -65,6 +66,21 @@ export function WaitlistForm({
   useEffect(() => {
     mountedAt.current = Date.now();
   }, []);
+
+  useEffect(() => {
+    if (status !== STATUS.SUCCESS && status !== STATUS.DUPLICATE) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setStatus(STATUS.IDLE);
+      setMessage("");
+    }, SUCCESS_RESET_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [status]);
 
   const variant = getThemeVariant(dark, theme);
   const styles = THEME_STYLES[variant];
