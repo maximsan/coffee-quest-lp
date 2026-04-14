@@ -19,6 +19,7 @@
 - Run `pnpm lint` after code changes.
 - Run `pnpm test:visual` for landing-page changes that can affect layout or styling.
 - Run `pnpm test:visual:update` only when the new visual result is intentionally accepted.
+- Run `pnpm test:email` after changing waitlist confirmation copy in `api/lib/waitlistConfirmationEmail.js`.
 
 ## Playwright
 

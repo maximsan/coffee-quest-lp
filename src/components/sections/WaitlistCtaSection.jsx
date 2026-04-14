@@ -23,7 +23,7 @@ export function WaitlistCtaSection() {
             compact
             placeholder="Enter your email"
             buttonLabel="Join waitlist"
-            note="Early access. No spam."
+            note="Launch updates and one signup confirmation—no newsletter."
           />
         </div>
       </div>

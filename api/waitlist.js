@@ -1,5 +1,6 @@
-/* global process */
 import { createClient } from "@supabase/supabase-js";
+
+import { sendWaitlistConfirmationEmail } from "./lib/sendWaitlistConfirmationEmail.js";
 
 const databaseClient = createClient(
   process.env.SUPABASE_URL,
@@ -100,6 +101,8 @@ export default async function handler(req, res) {
       .status(409)
       .json({ ok: true, message: "You're already on the waitlist!" });
   }
+
+  await sendWaitlistConfirmationEmail(email);
 
   return res
     .status(201)

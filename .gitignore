@@ -30,3 +30,6 @@ tests/playwright/.artifacts/
 *.sw?
 .vercel
 .env*.local
+
+# Local email HTML preview (pnpm email:preview)
+waitlist-email-preview.html

@@ -46,10 +46,17 @@ The Vite dev server (`pnpm dev`) does not run `api/waitlist.js`. To call that ro
 
 In **Vercel → Project → Settings → Environment Variables** add:
 
-| Name                  | Value                                     |
-| --------------------- | ----------------------------------------- |
-| `SUPABASE_URL`        | Your project URL                          |
-| `SUPABASE_SECRET_KEY` | Your **Secret** API key (`sb_secret_...`) |
+| Name                    | Value                                                                 |
+| ----------------------- | --------------------------------------------------------------------- |
+| `SUPABASE_URL`          | Your project URL                                                      |
+| `SUPABASE_SECRET_KEY`   | Your **Secret** API key (`sb_secret_...`)                             |
+| `RESEND_API_KEY`        | Resend API key (`re_...`) — omit to skip confirmation emails          |
+| `WAITLIST_FROM_EMAIL`   | Verified sender, e.g. `Coffee Quest <noreply@yourdomain.com>`       |
+| `PUBLIC_SITE_URL`       | Public site origin, no trailing slash (e.g. `https://www.example.com`) |
+| `PRIVACY_POLICY_URL`    | Optional; linked from the HTML confirmation footer when set        |
+| `EMAIL_LOGO_URL`        | Optional; absolute URL for the footer logo image. Defaults to `{PUBLIC_SITE_URL}/email-logo.png`. Set to `none` to send HTML without an image. |
+
+Create a [Resend](https://resend.com) account, verify your sending domain (or use Resend’s test sender for development), and create an API key.
 
 ## 4. Run the API locally
 
@@ -83,9 +90,45 @@ Browser (WaitlistForm)
     → Vercel Serverless Function
       → validates + normalizes email
       → inserts into Supabase
+      → if new row: sends transactional confirmation via Resend (when env is set)
       → returns JSON { ok, message }
     ← success / duplicate / error feedback shown in form
 ```
+
+### Confirmation email
+
+- Sent only when a **new** subscriber row is inserted (`201`). Duplicate signups (`409`, same email again) do **not** trigger another email.
+- If `RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, or `PUBLIC_SITE_URL` is missing, the API still returns success and the row is stored; the function logs a warning and skips sending.
+- Email failures are logged; the HTTP response remains success so users are not blocked after a successful insert.
+- Messages include **plain text and HTML**. The HTML footer shows the **Coffee Quest** app mark from [`public/email-logo.png`](../public/email-logo.png) (PNG derived from the same icon as [`public/favicon.svg`](../public/favicon.svg)) so clients that block remote images still get the text version. After rebranding, regenerate or replace `email-logo.png` so it stays in sync with the favicon.
+
+## Preview and test the confirmation email
+
+**HTML file in the repo (no Resend call)**
+
+From the repo root, `pnpm email:preview` writes **`waitlist-email-preview.html`** (gitignored) next to `package.json`. It loads **`.env`** then **`.env.local`** from the project root, then reads `PUBLIC_SITE_URL`, `PRIVACY_POLICY_URL`, and `EMAIL_LOGO_URL` from `process.env` (same variables as the deployed API). Open the HTML file in a browser to see layout and styling. For local preview, the script rewrites the footer logo to **`./public/email-logo.png`** so the image loads without a deployed `PUBLIC_SITE_URL` (skipped when you set a custom `EMAIL_LOGO_URL`).
+
+```bash
+pnpm email:preview
+PUBLIC_SITE_URL=https://your-site.com PRIVACY_POLICY_URL=https://your-site.com/privacy pnpm email:preview
+EMAIL_LOGO_URL=none pnpm email:preview   # preview without footer image
+```
+
+**Automated checks (copy / structure)**
+
+```bash
+pnpm test:email
+```
+
+This runs Node’s built-in test runner against `buildWaitlistConfirmationEmail` so refactors to the template stay guarded in CI.
+
+**Real send in your inbox**
+
+1. Set `RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, and `PUBLIC_SITE_URL` in `.env` for local use.
+2. Run `vercel dev` and `POST /api/waitlist` with a disposable address (see curl in section 4), or submit the landing form.
+3. In the [Resend dashboard](https://resend.com/emails), open the message to inspect HTML and image loading (logo URL must be publicly reachable over HTTPS).
+
+For richer layouts later, consider [React Email](https://react.email) or Resend’s templates; the current HTML is inlined in `api/lib/waitlistConfirmationEmail.js` for easy review.
 
 ## View subscribers
 
