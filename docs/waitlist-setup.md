@@ -12,14 +12,23 @@ CREATE TABLE waitlist_subscribers (
   email      TEXT NOT NULL UNIQUE,
   created_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- Required: the publishable (anon) key ships in the browser. Without RLS, anyone could read or wipe emails via PostgREST.
+ALTER TABLE waitlist_subscribers ENABLE ROW LEVEL SECURITY;
 ```
+
+If you skip the `ALTER TABLE ... ENABLE ROW LEVEL SECURITY` line, Supabase’s **Database → Security Advisor** flags `rls_disabled_in_public` (error) because `anon` has default grants on new `public` tables. After enabling RLS with no policies, you may see an **informational** `rls_enabled_no_policy` notice — that is expected for a table only written from your server (the Secret key uses a role that bypasses RLS). See [Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security).
 
 ## 2. Get your credentials
 
-In the Supabase dashboard go to **Settings → API** and copy:
+In the Supabase dashboard go to **Settings → API** (or use **Project → Connect**) and copy:
 
 - **Project URL** (e.g. `https://abcdef.supabase.co`)
-- **service_role key** (secret — never expose in client code)
+- **Secret API key** (`sb_secret_...`) from **Settings → API Keys** — use this for server-side inserts. It is not a JWT; Supabase maps it to the same elevated Postgres role as the old `service_role` key and you can rotate it independently in the dashboard.
+
+Supabase is moving hosted projects from long-lived JWT **anon** / **service_role** keys to **publishable** (`sb_publishable_...`) and **secret** (`sb_secret_...`) keys. The old keys are tied to the project JWT secret, which makes rotation risky (everything rotates together, long-lived tokens, mobile rollout delays). Secret keys are verified at the API gateway, mint short-lived JWTs downstream, block browser `User-Agent` misuse with 401, and can be rotated or revoked per key. The JWT **service_role** key still works during the transition (see **Legacy API keys** in the dashboard), but new setups should use a **Secret** key.
+
+Reference: [Understanding API keys](https://supabase.com/docs/guides/api/api-keys).
 
 ## 3. Set environment variables
 
@@ -35,10 +44,10 @@ cp .env.example .env
 
 In **Vercel → Project → Settings → Environment Variables** add:
 
-| Name | Value |
-|------|-------|
-| `SUPABASE_URL` | Your project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Your service_role key |
+| Name                  | Value                                     |
+| --------------------- | ----------------------------------------- |
+| `SUPABASE_URL`        | Your project URL                          |
+| `SUPABASE_SECRET_KEY` | Your **Secret** API key (`sb_secret_...`) |
 
 ## 4. Deploy
 
