@@ -23,7 +23,7 @@ pnpm test:visual
 
 ## Environment
 
-See [ENVIRONMENT.md](ENVIRONMENT.md) for the source of truth on local testing values, Vercel sensitive variables, and GitHub Actions maintenance secrets.
+See [docs/environment-variables.md](docs/environment-variables.md) for the source of truth on local testing values, Vercel sensitive variables, and GitHub Actions maintenance secrets.
 
 ## Visual regression
 
@@ -36,4 +36,4 @@ Playwright baselines live in `tests/playwright/landing-page.visual.spec.js-snaps
 
 The scheduled `maintenance` workflow reads the full `waitlist_subscribers` table through the Supabase API and uploads a private Vercel Blob backup once per day. That database read also keeps the Supabase free-tier project active, so no separate keep-alive endpoint is used.
 
-See [ENVIRONMENT.md](ENVIRONMENT.md) for maintenance environment setup.
+See [docs/environment-variables.md](docs/environment-variables.md) for maintenance environment setup.

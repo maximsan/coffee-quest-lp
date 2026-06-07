@@ -1,11 +1,14 @@
 import { del, list } from "@vercel/blob";
 
-import { loadMaintenanceEnv, requireEnv } from "./lib/loadMaintenanceEnv.mjs";
+import { requireEnv, loadLocalEnv } from "./lib/index.mjs";
 
-const BACKUP_PREFIX = "backups/waitlist-subscribers-";
-const KEEP_COUNT = 14;
+const FILTER_PREFIX = "backups/";
+const FULL_PREFIX = "backups/waitlist-subscribers-";
+// Keep two weeks of daily backups for recent restore coverage
+// without unbounded Blob growth.
+const DAILY_BACKUP_RETENTION_COUNT = 14;
 
-loadMaintenanceEnv();
+loadLocalEnv();
 
 main().catch((error) => {
   console.error(error);
@@ -14,22 +17,25 @@ main().catch((error) => {
 
 async function main() {
   const token = requireEnv("BLOB_READ_WRITE_TOKEN");
-  const { blobs } = await list({ prefix: "backups/", token });
+
+  const { blobs } = await list({ prefix: FILTER_PREFIX, token });
 
   const waitlistBlobs = blobs.filter((blob) =>
-    blob.pathname.startsWith(BACKUP_PREFIX),
+    blob.pathname.startsWith(FULL_PREFIX),
   );
 
   const oldBlobs = waitlistBlobs
     .sort((a, b) => b.pathname.localeCompare(a.pathname))
-    .slice(KEEP_COUNT);
+    .slice(DAILY_BACKUP_RETENTION_COUNT);
 
   for (const blob of oldBlobs) {
     await del(blob.url, { token });
     console.log(`pruned ${blob.pathname}`);
   }
 
+  const keptCount = waitlistBlobs.length - oldBlobs.length;
+
   console.log(
-    `kept ${Math.min(waitlistBlobs.length, KEEP_COUNT)} waitlist backups`,
+    `found ${waitlistBlobs.length} waitlist backups; pruned ${oldBlobs.length}; kept ${keptCount}; retention ${DAILY_BACKUP_RETENTION_COUNT} daily backups`,
   );
 }

@@ -3,14 +3,14 @@ import { writeFile } from "node:fs/promises";
 import { createClient } from "@supabase/supabase-js";
 import { put } from "@vercel/blob";
 
-import { loadMaintenanceEnv, requireEnv } from "./lib/loadMaintenanceEnv.mjs";
+import { requireEnv, loadLocalEnv } from "./lib/index.mjs";
 
 const TABLE_NAME = "waitlist_subscribers";
 const BACKUP_FILE = "waitlist_subscribers.csv";
 const BACKUP_COLUMNS = ["id", "email", "created_at", "notified_at"];
 const PAGE_SIZE = 1000;
 
-loadMaintenanceEnv();
+loadLocalEnv();
 
 main().catch((error) => {
   console.error(error);
@@ -22,9 +22,13 @@ async function main() {
     requireEnv("SUPABASE_URL"),
     requireEnv("SUPABASE_SECRET_KEY"),
   );
+
   const blobToken = requireEnv("BLOB_READ_WRITE_TOKEN");
+
   const rows = await fetchAllSubscribers(supabase);
+
   const csv = toCsv(rows);
+
   const date = new Date().toISOString().slice(0, 10);
   const pathname = `backups/waitlist-subscribers-${date}.csv`;
 

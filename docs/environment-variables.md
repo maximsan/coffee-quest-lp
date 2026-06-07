@@ -73,66 +73,17 @@ Use this flow when you want to run the landing page and test the Vercel API rout
 
    Leave `company_url` unset or empty when testing a real signup. A non-empty `company_url` is the honeypot field and returns a fake success without writing to Supabase.
 
-`RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, and `PUBLIC_SITE_URL` are only needed when you want local signups to send real confirmation emails. `BLOB_READ_WRITE_TOKEN` is only needed when testing backup or prune scripts.
+`RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, and `PUBLIC_SITE_URL` are only needed when you want local signups to send real confirmation emails. `BLOB_READ_WRITE_TOKEN` is only needed when testing waitlist backup or prune scripts.
 
 Separate local/test values are recommended because local testing can write waitlist rows, send emails, and create backup blobs. You do not need a separate provider account for every value if you intentionally test against production, but the value in `.env.private.local` still must be readable by you. For sensitive Vercel Production or Preview variables, get or recreate the value at the original provider, not from `vercel env pull`.
 
-## Local Blob backup testing
-
-With the current backup scripts, you cannot test private Vercel Blob locally without a readable `BLOB_READ_WRITE_TOKEN`. If the Production or Preview token is a sensitive Vercel environment variable, `vercel env pull` cannot recover it for you.
-
-Vercel's documented token model does not expose arbitrary extra read-write tokens for one existing Blob store. The token is created for the Blob store/project connection, and the CLI can either read it from env or receive it with `--rw-token`. For local testing, use a readable token from a development store/project connection, not an unreadable Production or Preview sensitive env value.
-
-Recommended local setup:
-
-1. Create a separate private Blob store for development, or connect a Blob store only to the Vercel Development environment.
-2. Copy the generated read-write token from the Blob store settings when it is created or rotated.
-3. Write that token to `.env.private.local`:
-
-   ```env
-   BLOB_READ_WRITE_TOKEN="vercel-blob-dev-read-write-token"
-   ```
-
-If the Blob store uses Vercel's newer OIDC authentication and no long-lived read-write token is available, these scripts need to be changed before that path can be used locally. They currently validate `BLOB_READ_WRITE_TOKEN` and pass it explicitly to `@vercel/blob`.
-
-Use a Blob-only smoke test when you only need to verify the token and private store:
-
-```bash
-printf "local blob smoke test\n" > /tmp/coffee-quest-blob-smoke.txt
-
-node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob put \
-  /tmp/coffee-quest-blob-smoke.txt \
-  --access private \
-  --pathname local-test/coffee-quest-blob-smoke.txt
-
-node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob list \
-  --prefix local-test/
-
-node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob get \
-  local-test/coffee-quest-blob-smoke.txt \
-  --output /tmp/coffee-quest-blob-smoke.download.txt
-
-node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob del \
-  local-test/coffee-quest-blob-smoke.txt
-```
-
-Use the full backup test only when you also want to verify Supabase export plus Blob upload:
-
-```bash
-pnpm env:check:maintenance
-node scripts/backup-waitlist-to-blob.mjs
-node scripts/prune-waitlist-backups.mjs
-```
-
-The full backup test reads real rows from `waitlist_subscribers`, writes `waitlist_subscribers.csv` locally, and uploads a private blob under `backups/waitlist-subscribers-YYYY-MM-DD.csv`. Running it more than once on the same day can fail because the backup pathname is deterministic and overwrites are not enabled.
-
 ## Required variables
 
-| Scope | Check command | Required variables |
-| --- | --- | --- |
-| Vercel functions | `pnpm env:check` | `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `COUNT_API_TOKEN` |
+| Scope                      | Check command                | Required variables                                             |
+| -------------------------- | ---------------------------- | -------------------------------------------------------------- |
+| Vercel functions           | `pnpm env:check`             | `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `COUNT_API_TOKEN`       |
 | Maintenance backup scripts | `pnpm env:check:maintenance` | `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `BLOB_READ_WRITE_TOKEN` |
-| Confirmation email sending | `pnpm env:check:email` | `RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, `PUBLIC_SITE_URL` |
+| Confirmation email sending | `pnpm env:check:email`       | `RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, `PUBLIC_SITE_URL`     |
 
 `RESEND_API_KEY`, `WAITLIST_FROM_EMAIL`, and `PUBLIC_SITE_URL` are only required when confirmation emails should be sent. Without them, signup still works and the email sender logs that it skipped the message.
 
@@ -145,17 +96,17 @@ Optional email variables:
 
 Do not try to recover sensitive Production or Preview values from Vercel. For local testing, use values that are readable because you just created them, because they belong to a development provider resource, or because you intentionally put them in Vercel's Development environment.
 
-| Variable | Local testing value |
-| --- | --- |
-| `SUPABASE_URL` | Use the URL of a development Supabase project. If you test against production intentionally, get the project URL from Supabase, not from an unreadable Vercel env value. |
-| `SUPABASE_SECRET_KEY` | Prefer a development Supabase secret key from the Supabase dashboard. If the production key is lost or unreadable, rotate it in Supabase and update every place that needs it. |
-| `COUNT_API_TOKEN` | Generate any strong random local token. Use the same value in `.env.private.local` and in the `Authorization: Bearer ...` header when testing `/api/count`. |
-| `BLOB_READ_WRITE_TOKEN` | Prefer a readable token from a separate development Blob store/project connection. Use the Local Blob backup testing flow above. If the only token is an unreadable sensitive Production/Preview value, rotate or recreate the token/store and update Vercel, GitHub Actions, and `.env.private.local` when you create it. |
-| `RESEND_API_KEY` | Use a separate Resend development/test API key. Omit it when you want signups to work without sending confirmation emails. |
-| `WAITLIST_FROM_EMAIL` | Use a verified local/test sender, such as Resend's test sender or a verified domain sender. Omit it when you want to skip confirmation emails. |
-| `PUBLIC_SITE_URL` | Use the origin that should appear in confirmation email links. For local email previews, a placeholder or local URL is enough; for real sends, use a reachable HTTPS site URL. |
-| `PRIVACY_POLICY_URL` | Optional. Use a reachable URL only when you want the email footer to include the privacy link. |
-| `EMAIL_LOGO_URL` | Optional. Use a reachable image URL, or set `none` to omit the HTML email logo. |
+| Variable                | Local testing value                                                                                                                                                                                                                                                                                                        |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SUPABASE_URL`          | Use the URL of a development Supabase project. If you test against production intentionally, get the project URL from Supabase, not from an unreadable Vercel env value.                                                                                                                                                   |
+| `SUPABASE_SECRET_KEY`   | Prefer a development Supabase secret key from the Supabase dashboard. If the production key is lost or unreadable, rotate it in Supabase and update every place that needs it.                                                                                                                                             |
+| `COUNT_API_TOKEN`       | Generate any strong random local token. Use the same value in `.env.private.local` and in the `Authorization: Bearer ...` header when testing `/api/count`.                                                                                                                                                                |
+| `BLOB_READ_WRITE_TOKEN` | Prefer a readable token from a separate development Blob store/project connection. Use the local Blob testing flow in [`waitlist-setup.md`](waitlist-setup.md). If the only token is an unreadable sensitive Production/Preview value, rotate or recreate the token/store and update Vercel, GitHub Actions, and `.env.private.local` when you create it. |
+| `RESEND_API_KEY`        | Use a separate Resend development/test API key. Omit it when you want signups to work without sending confirmation emails.                                                                                                                                                                                                 |
+| `WAITLIST_FROM_EMAIL`   | Use a verified local/test sender, such as Resend's test sender or a verified domain sender. Omit it when you want to skip confirmation emails.                                                                                                                                                                             |
+| `PUBLIC_SITE_URL`       | Use the origin that should appear in confirmation email links. For local email previews, a placeholder or local URL is enough; for real sends, use a reachable HTTPS site URL.                                                                                                                                             |
+| `PRIVACY_POLICY_URL`    | Optional. Use a reachable URL only when you want the email footer to include the privacy link.                                                                                                                                                                                                                             |
+| `EMAIL_LOGO_URL`        | Optional. Use a reachable image URL, or set `none` to omit the HTML email logo.                                                                                                                                                                                                                                            |
 
 ## Vercel sensitive environment variables
 
@@ -170,7 +121,7 @@ This is expected and does not mean the production value is empty.
 In Vercel Production and Preview, the variable is injected automatically and can be accessed with:
 
 ```js
-process.env.SUPABASE_SECRET_KEY
+process.env.SUPABASE_SECRET_KEY;
 ```
 
 For local development, write manual values to `.env.private.local`:
@@ -195,4 +146,4 @@ The workflow validates those names before running the backup scripts. It only pr
 
 Local maintenance runs use `.env.private.local`.
 
-For waitlist backups, create a private Vercel Blob store connected to the Vercel project. See [`docs/waitlist-setup.md`](docs/waitlist-setup.md) for the Blob setup and backup commands.
+For waitlist backups, create a private Vercel Blob store connected to the Vercel project. See [`waitlist-setup.md`](waitlist-setup.md) for the Blob setup and backup commands.

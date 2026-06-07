@@ -1,12 +1,8 @@
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
 import {
   LOCAL_ENV_FILES,
   loadLocalEnv,
-} from "./lib/loadLocalEnv.mjs";
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  repoRoot,
+} from "./lib/index.mjs";
 
 const requiredEnvByScope = {
   waitlist: ["SUPABASE_URL", "SUPABASE_SECRET_KEY"],
@@ -63,10 +59,10 @@ console.log(
 
 function getEnvFiles(explicitEnvFile) {
   if (explicitEnvFile) {
-    return { cwd: root, files: [explicitEnvFile] };
+    return { cwd: repoRoot, files: [explicitEnvFile] };
   }
 
-  return { cwd: root, files: LOCAL_ENV_FILES };
+  return { cwd: repoRoot, files: LOCAL_ENV_FILES };
 }
 
 function parseArgs(argv) {

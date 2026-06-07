@@ -63,13 +63,13 @@ Reference: [Understanding API keys](https://supabase.com/docs/guides/api/api-key
 
 ### Local development
 
-Follow the local application testing flow in [`ENVIRONMENT.md`](../ENVIRONMENT.md) to create `.env.private.local`, fill the minimum local values, run `pnpm env:check`, and start `pnpm dev:vercel`.
+Follow the local application testing flow in [`environment-variables.md`](environment-variables.md) to create `.env.private.local`, fill the minimum local values, run `pnpm env:check`, and start `pnpm dev:vercel`.
 
 The Vite dev server (`pnpm dev`) does not run `api/waitlist.js`. To call that route locally, use `pnpm dev:vercel` as described in section 4.
 
 ### Vercel production
 
-In **Vercel → Project → Settings → Environment Variables**, add the production variables listed in [`ENVIRONMENT.md`](../ENVIRONMENT.md).
+In **Vercel → Project → Settings → Environment Variables**, add the production variables listed in [`environment-variables.md`](environment-variables.md).
 
 The Blob store must be private because subscriber exports contain PII. Do not commit CSV backups.
 
@@ -94,21 +94,68 @@ vercel blob create-store coffee-quest-waitlist-backups --access private --region
 
 Private access matters because backup files contain subscriber email addresses. Vercel Blob access mode is chosen when the store is created, so do not create this as a public store.
 
-When the store is connected to the project, Vercel creates `BLOB_READ_WRITE_TOKEN` for the selected environments. Follow [`ENVIRONMENT.md`](../ENVIRONMENT.md) for local Blob testing, including what to do when Production or Preview tokens are sensitive and unreadable.
+When the store is connected to the project, Vercel creates `BLOB_READ_WRITE_TOKEN` for the selected environments. If the Production or Preview token is sensitive, `vercel env pull` cannot recover it for local testing.
 
-The backup script uploads to `backups/waitlist-subscribers-YYYY-MM-DD.csv` with `access: "private"` and `addRandomSuffix: false`. Running the backup more than once on the same day targets the same pathname and can fail if that blob already exists, so use the scheduled workflow as the normal path and only run local backups intentionally.
+#### Local Blob testing
+
+With the current backup scripts, you cannot test private Vercel Blob locally without a readable `BLOB_READ_WRITE_TOKEN`.
+
+Vercel's documented token model does not expose arbitrary extra read-write tokens for one existing Blob store. The token is created for the Blob store/project connection, and the CLI can either read it from env or receive it with `--rw-token`. For local testing, use a readable token from a development store/project connection, not an unreadable Production or Preview sensitive env value.
+
+Recommended local setup:
+
+1. Create a separate private Blob store for development, or connect a Blob store only to the Vercel Development environment.
+2. Copy the generated read-write token from the Blob store settings when it is created or rotated.
+3. Write that token to `.env.private.local`:
+
+   ```env
+   BLOB_READ_WRITE_TOKEN="vercel-blob-dev-read-write-token"
+   ```
+
+If the Blob store uses Vercel's newer OIDC authentication and no long-lived read-write token is available, these scripts need to be changed before that path can be used locally. They currently validate `BLOB_READ_WRITE_TOKEN` and pass it explicitly to `@vercel/blob`.
+
+Use a Blob-only smoke test when you only need to verify the token and private store. Run the whole block; the first line only creates the small payload file for the upload command.
+
+```bash
+printf "local blob smoke test\n" > /tmp/coffee-quest-blob-smoke.txt
+
+node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob put \
+  /tmp/coffee-quest-blob-smoke.txt \
+  --access private \
+  --pathname local-test/coffee-quest-blob-smoke.txt
+
+node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob list \
+  --prefix local-test/
+
+node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob get \
+  local-test/coffee-quest-blob-smoke.txt \
+  --output /tmp/coffee-quest-blob-smoke.download.txt
+
+node scripts/run-with-local-env.mjs pnpm dlx vercel@latest blob del \
+  local-test/coffee-quest-blob-smoke.txt
+```
+
+Use the full backup test only when you also want to verify Supabase export plus Blob upload:
+
+```bash
+pnpm env:check:maintenance
+node scripts/backup-waitlist-to-blob.mjs
+node scripts/prune-waitlist-backups.mjs
+```
+
+The full backup test reads real rows from `waitlist_subscribers`, writes `waitlist_subscribers.csv` locally, and uploads a private blob under `backups/waitlist-subscribers-YYYY-MM-DD.csv`. Running it more than once on the same day can fail because the backup pathname is deterministic and overwrites are not enabled.
 
 References: [Vercel Blob private storage](https://vercel.com/docs/vercel-blob/private-storage), [Vercel Blob SDK token behavior](https://vercel.com/docs/vercel-blob/using-blob-sdk), and [Vercel Blob CLI](https://vercel.com/docs/cli/blob).
 
 ### GitHub maintenance credentials
 
-The maintenance workflow cannot read sensitive app secrets back from Vercel. Add the maintenance values listed in [`ENVIRONMENT.md`](../ENVIRONMENT.md) directly in **GitHub → Repository → Settings → Secrets and variables → Actions**.
+The maintenance workflow cannot read sensitive app secrets back from Vercel. Add the maintenance values listed in [`environment-variables.md`](environment-variables.md) directly in **GitHub → Repository → Settings → Secrets and variables → Actions**.
 
 Create a [Resend](https://resend.com) account, verify your sending domain (or use Resend’s test sender for development), and create an API key.
 
 ## 4. Run the API locally
 
-`pnpm dev` starts **Vite** only; it does not mount `api/waitlist.js`. To test the waitlist form and API routes locally, follow the local application testing flow in [`ENVIRONMENT.md`](../ENVIRONMENT.md).
+`pnpm dev` starts **Vite** only; it does not mount `api/waitlist.js`. To test the waitlist form and API routes locally, follow the local application testing flow in [`environment-variables.md`](environment-variables.md).
 
 ## 5. Deploy
 
@@ -138,7 +185,7 @@ Browser (WaitlistForm)
 
 **HTML file in the repo (no Resend call)**
 
-From the repo root, `pnpm email:preview` writes **`waitlist-email-preview.html`** (gitignored) next to `package.json`. It loads local env files in the order documented in [`ENVIRONMENT.md`](../ENVIRONMENT.md), then reads `PUBLIC_SITE_URL`, `PRIVACY_POLICY_URL`, and `EMAIL_LOGO_URL` from `process.env` (same variables as the deployed API). Open the HTML file in a browser to see layout and styling. For local preview, the script rewrites the footer logo to **`./public/email-logo.png`** so the image loads without a deployed `PUBLIC_SITE_URL` (skipped when you set a custom `EMAIL_LOGO_URL`).
+From the repo root, `pnpm email:preview` writes **`waitlist-email-preview.html`** (gitignored) next to `package.json`. It loads local env files in the order documented in [`environment-variables.md`](environment-variables.md), then reads `PUBLIC_SITE_URL`, `PRIVACY_POLICY_URL`, and `EMAIL_LOGO_URL` from `process.env` (same variables as the deployed API). Open the HTML file in a browser to see layout and styling. For local preview, the script rewrites the footer logo to **`./public/email-logo.png`** so the image loads without a deployed `PUBLIC_SITE_URL` (skipped when you set a custom `EMAIL_LOGO_URL`).
 
 ```bash
 pnpm email:preview
@@ -156,7 +203,7 @@ This runs Node’s built-in test runner against `buildWaitlistConfirmationEmail`
 
 **Real send in your inbox**
 
-1. Create `.env.private.local` by following [`ENVIRONMENT.md`](../ENVIRONMENT.md), including email variables.
+1. Create `.env.private.local` by following [`environment-variables.md`](environment-variables.md), including email variables.
 2. Run `pnpm dev:vercel` and `POST /api/waitlist` with a disposable address (see curl in section 4), or submit the landing form.
 3. In the [Resend dashboard](https://resend.com/emails), open the message to inspect HTML and image loading (logo URL must be publicly reachable over HTTPS).
 
@@ -177,13 +224,13 @@ The workflow does four things:
 3. Uploads the CSV to the private Vercel Blob store at `backups/waitlist-subscribers-YYYY-MM-DD.csv`.
 4. Deletes older backup blobs so only the newest 14 daily snapshots remain.
 
-GitHub Actions provides maintenance values through repository secrets. Local maintenance runs use `.env.private.local`; see [`ENVIRONMENT.md`](../ENVIRONMENT.md) for the required names.
+GitHub Actions provides maintenance values through repository secrets. Local maintenance runs use `.env.private.local`; see [`environment-variables.md`](environment-variables.md) for the required names.
 
 The Supabase table read is also the keep-alive activity. No `/api/keepalive` function is required.
 
 ### Restore from backup
 
-Download the latest private Blob backup with a readable `BLOB_READ_WRITE_TOKEN` from `.env.private.local` or your shell. See [`ENVIRONMENT.md`](../ENVIRONMENT.md) if you do not have a readable token. Then run the create-or-update schema SQL above and import the CSV through a temporary table:
+Download the latest private Blob backup with a readable `BLOB_READ_WRITE_TOKEN` from `.env.private.local` or your shell. See the local Blob testing notes above if you do not have a readable token. Then run the create-or-update schema SQL above and import the CSV through a temporary table:
 
 ```sql
 create temporary table waitlist_subscribers_backup (
@@ -214,7 +261,7 @@ curl -s https://your-site.com/api/count \
   -H "Authorization: Bearer $COUNT_API_TOKEN"
 ```
 
-To run the same check locally, follow [`ENVIRONMENT.md`](../ENVIRONMENT.md), start `pnpm dev:vercel`, and call the local function URL:
+To run the same check locally, follow [`environment-variables.md`](environment-variables.md), start `pnpm dev:vercel`, and call the local function URL:
 
 ```bash
 curl -s http://localhost:3000/api/count \

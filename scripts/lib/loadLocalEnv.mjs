@@ -3,10 +3,12 @@ import { resolve } from "node:path";
 
 import { parse as parseEnvFile } from "dotenv";
 
+import { repoRoot } from "./paths.mjs";
+
 export const LOCAL_ENV_FILES = [".env", ".env.local", ".env.private.local"];
 
 export function loadLocalEnv({
-  cwd = process.cwd(),
+  cwd = repoRoot,
   files = LOCAL_ENV_FILES,
 } = {}) {
   const shellEnvNames = new Set(Object.keys(process.env));

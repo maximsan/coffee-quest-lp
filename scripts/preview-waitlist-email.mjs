@@ -15,18 +15,15 @@
  */
 
 import { writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 
 import { buildWaitlistConfirmationEmail } from "../api/lib/waitlistConfirmationEmail.js";
-import { loadLocalEnv } from "./lib/loadLocalEnv.mjs";
+import { loadLocalEnv, repoRoot } from "./lib/index.mjs";
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-
-loadLocalEnv({ cwd: root });
+loadLocalEnv();
 
 const env = process.env;
-const outPath = join(root, "waitlist-email-preview.html");
+const outPath = resolve(repoRoot, "waitlist-email-preview.html");
 
 const siteUrl = (env.PUBLIC_SITE_URL ?? "https://example.com")
   .trim()
@@ -36,8 +33,11 @@ const privacyUrl = (env.PRIVACY_POLICY_URL ?? "").trim() || undefined;
 
 const rawLogo = (env.EMAIL_LOGO_URL ?? "").trim();
 let logoUrl;
-if (rawLogo === "none" || rawLogo === "false") logoUrl = null;
-else if (rawLogo) logoUrl = rawLogo;
+if (rawLogo === "none" || rawLogo === "false") {
+  logoUrl = null;
+} else if (rawLogo) {
+  logoUrl = rawLogo;
+}
 
 const usedCustomLogoFromEnv = Boolean(
   rawLogo && rawLogo !== "none" && rawLogo !== "false",
