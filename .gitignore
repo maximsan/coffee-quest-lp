@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 .env
+.env.local
+.env.private.local
+.env.*.local
 dist-ssr
 *.local
 test-results/
@@ -29,7 +32,9 @@ tests/playwright/.artifacts/
 *.sln
 *.sw?
 .vercel
-.env*.local
 
 # Local email HTML preview (pnpm email:preview)
 waitlist-email-preview.html
+.env*
+
+*.csv

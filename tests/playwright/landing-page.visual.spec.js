@@ -35,6 +35,20 @@ const sectionSnapshots = [
 ];
 
 test.describe("landing page visual regression", () => {
+  test("shows launch notification consent copy next to the form", async ({
+    page,
+  }) => {
+    await stabilizeLandingPage(page);
+
+    await expect(
+      page
+        .getByText(
+          "Enter your email and we'll notify you once when Coffee Quest launches.",
+        )
+        .first(),
+    ).toBeVisible();
+  });
+
   test("captures full-page snapshot", async ({ page }, testInfo) => {
     await stabilizeLandingPage(page);
 

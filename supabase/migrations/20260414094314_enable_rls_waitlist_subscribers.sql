@@ -1,3 +1,10 @@
--- Server-side inserts use the Secret API key (elevated Postgres role, BYPASSRLS).
--- With RLS on and no policies, PostgREST clients using the publishable/anon key cannot read or modify rows.
+CREATE TABLE IF NOT EXISTS public.waitlist_subscribers (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  email text NOT NULL,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS waitlist_subscribers_email_key
+  ON public.waitlist_subscribers (email);
+
 ALTER TABLE public.waitlist_subscribers ENABLE ROW LEVEL SECURITY;

@@ -8,7 +8,7 @@ export function WaitlistCtaSection() {
       data-testid="landing-waitlist"
       className="rise-in rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8"
     >
-      <div className="mx-auto flex max-w-[720px] flex-col items-center text-center">
+      <div className="mx-auto flex max-w-180 flex-col items-center text-center">
         <SectionTag dark>EARLY ACCESS</SectionTag>
         <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
           Join the waitlist and build real coffee confidence.
@@ -23,7 +23,7 @@ export function WaitlistCtaSection() {
             compact
             placeholder="Enter your email"
             buttonLabel="Join waitlist"
-            note="Launch updates and one signup confirmation—no newsletter."
+            note="Enter your email and we'll notify you once when Coffee Quest launches."
           />
         </div>
       </div>
