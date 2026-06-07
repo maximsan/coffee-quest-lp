@@ -1,5 +1,5 @@
 {
-  "name": "new-project",
+  "name": "coffee-quest-landing-page",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,8 @@
     "env:check:email": "node scripts/validate-env.mjs --scope email",
     "email:preview": "node scripts/preview-waitlist-email.mjs",
     "test:email": "node --test tests/waitlistConfirmationEmail.test.js",
-    "email:backup": "node scripts/backup-waitlist-to-blob.mjs",
-    "email:prune": "node scripts/prune-waitlist-backups.mjs",
+    "waitlist:backup": "node scripts/backup-waitlist-to-blob.mjs",
+    "waitlist:prune": "node scripts/prune-waitlist-backups.mjs",
     "preview": "vite preview",
     "test:visual": "playwright test --config tests/playwright/playwright.config.js",
     "test:visual:update": "playwright test --config tests/playwright/playwright.config.js --update-snapshots"
