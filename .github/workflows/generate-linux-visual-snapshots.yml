@@ -1,13 +1,10 @@
-name: CI
+name: Generate Linux visual snapshots
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch: {}
 
 jobs:
-  check:
+  generate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     container:
@@ -30,19 +27,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
-        run: pnpm lint
+      - name: Generate Linux visual snapshots
+        run: pnpm test:visual:update
 
-      - name: Test email templates and visual snapshots
-        run: pnpm test:email && pnpm test:visual
-
-      - name: Build
-        run: pnpm build
-
-      - name: Upload Playwright artifacts
-        if: ${{ failure() }}
+      - name: Upload Linux visual snapshots
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-artifacts
-          path: tests/playwright/.artifacts/
+          name: linux-visual-snapshots
+          path: tests/playwright/landing-page.visual.spec.js-snapshots/*-linux.png
+          if-no-files-found: error
           retention-days: 7
