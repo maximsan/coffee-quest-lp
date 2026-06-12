@@ -96,7 +96,7 @@ export function buildWaitlistConfirmationEmail({ siteUrl, privacyUrl, logoUrl })
   const siteHref = safeHttpUrl(siteUrl);
   const privacyHref = privacyUrl ? safeHttpUrl(privacyUrl) : "";
 
-  let resolvedLogo = "";
+  let resolvedLogo;
   if (logoUrl === null) {
     resolvedLogo = "";
   } else if (logoUrl) {

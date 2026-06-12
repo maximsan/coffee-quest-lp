@@ -11,30 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      image: mcr.microsoft.com/playwright:v1.60.0-noble
       options: --ipc=host
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup
+        uses: ./.github/actions/setup
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 26.3.0
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Security audit
+        continue-on-error: true
+        run: pnpm audit
 
       - name: Lint
         run: pnpm lint
 
-      - name: Test email templates and visual snapshots
-        run: pnpm test:email && pnpm test:visual
+      - name: Test units and visual snapshots
+        run: pnpm test && pnpm test:visual
 
       - name: Build
         run: pnpm build
@@ -46,3 +41,18 @@ jobs:
           name: playwright-artifacts
           path: tests/playwright/.artifacts/
           retention-days: 7
+
+  # Report-only performance/SEO/a11y audit of the built site. Never blocks merge.
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run Lighthouse CI
+        run: pnpm lighthouse

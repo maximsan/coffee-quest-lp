@@ -203,9 +203,16 @@ input {
   animation: grove-tree-fruit-bob 3.4s ease-in-out infinite;
 }
 
+/**
+ * Starts at opacity 0.01 (not 0) on purpose: Chromium excludes fully
+ * transparent elements as Largest Contentful Paint candidates, so a 0→1 fade
+ * on the hero heading made Lighthouse report NO_LCP and error the whole
+ * Performance category. 0.01 is visually identical to 0 but keeps the element
+ * LCP-eligible.
+ */
 @keyframes rise-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(16px);
   }
 

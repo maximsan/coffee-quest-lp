@@ -14,14 +14,16 @@ pnpm dev:vercel        # Vercel local server (usually :3000) — required to exe
 pnpm build             # Vite production build to dist/
 pnpm lint              # ESLint
 pnpm env:check         # Validate app-scope env vars (see scopes below)
-pnpm test:email        # Node test runner for the confirmation-email builder
+pnpm test              # Node test runner — all tests/*.test.js (API handlers + email builder)
+pnpm test:email        # Subset: just the confirmation-email builder tests
 pnpm test:visual       # Playwright visual snapshots
 pnpm test:visual:update  # Re-baseline snapshots — only when a visual change is intentional
+pnpm lighthouse        # Build + report-only Lighthouse audit of dist/ (needs arm64 Node locally)
 ```
 
 Run a single Playwright spec/grep: `pnpm exec playwright test --config tests/playwright/playwright.config.js -g "hero"`.
 
-CI (`.github/workflows/ci.yml`) runs lint → `pnpm test:email && pnpm test:visual` → build on Node 26.
+CI (`.github/workflows/ci.yml`): the `check` job runs lint → `pnpm test && pnpm test:visual` → build on Node 26 (in a Playwright container); a separate, non-blocking `lighthouse` job audits the built `dist/`. Dependabot (`.github/dependabot.yml`) opens weekly grouped dependency PRs.
 
 ## Architecture
 

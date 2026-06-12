@@ -12,35 +12,41 @@
     "env:check:maintenance": "node scripts/validate-env.mjs --scope maintenance",
     "env:check:email": "node scripts/validate-env.mjs --scope email",
     "email:preview": "node scripts/preview-waitlist-email.mjs",
+    "test": "node --test \"tests/**/*.test.js\"",
     "test:email": "node --test tests/waitlistConfirmationEmail.test.js",
     "waitlist:backup": "node scripts/backup-waitlist-to-blob.mjs",
     "waitlist:prune": "node scripts/prune-waitlist-backups.mjs",
     "preview": "vite preview",
+    "lighthouse": "pnpm build && lhci autorun",
     "test:visual": "playwright test --config tests/playwright/playwright.config.js",
     "test:visual:update": "playwright test --config tests/playwright/playwright.config.js --update-snapshots"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.103.0",
+    "@supabase/supabase-js": "^2.107.0",
     "@vercel/blob": "^2.4.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.14.0",
-    "resend": "^6.11.0"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.17.0",
+    "resend": "^6.12.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@playwright/test": "^1.59.1",
-    "@tailwindcss/vite": "^4.2.2",
-    "@types/react": "^19.2.14",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.60.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.0.2",
     "dotenv": "^17.4.2",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint": "^10.4.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0",
-    "tailwindcss": "^4.2.2",
-    "vite": "^8.0.4"
+    "globals": "^17.6.0",
+    "tailwindcss": "^4.3.0",
+    "vite": "^8.0.16"
   },
-  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
+  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916",
+  "volta": {
+    "node": "26.3.0"
+  }
 }
