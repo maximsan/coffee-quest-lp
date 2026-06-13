@@ -1,10 +1,12 @@
-import coffeeTreeGrowthVideo from "../../assets/Flowerpot_seed_to.mp4";
+import coffeeTreeGrowthWebm from "../../assets/coffee-tree-growth.webm";
+import coffeeTreeGrowthMp4 from "../../assets/coffee-tree-growth.mp4";
 import coffeeTreeGrowthPoster from "../../assets/coffee-tree-poster.webp";
 import { landingPageValueProps } from "../../data/content";
 import { cx } from "../../utils/cx";
 import { CoffeeCardsConceptPreview } from "../previews/CoffeeCardsConceptPreview";
 import { AudienceList } from "../previews/AudienceList";
 import { ProgressPreview } from "../previews/ProgressPreview";
+import { LazyVideo } from "../shared/LazyVideo";
 import { SectionTag } from "../shared/SectionTag";
 
 export function LandingPageSections() {
@@ -52,18 +54,15 @@ export function LandingPageSections() {
             <div className="relative overflow-hidden rounded-4xl border border-[#4f684d] bg-[linear-gradient(180deg,rgba(20,27,23,0.94),rgba(18,25,21,0.78))] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.22)]">
               <div className="pointer-events-none absolute inset-x-12 top-6 h-24 rounded-full bg-[radial-gradient(circle,rgba(205,161,110,0.22),transparent_68%)] blur-2xl" />
               <div className="overflow-hidden rounded-[27px] border border-[#516a51] bg-[#18201c] shadow-[0_18px_50px_rgba(0,0,0,0.24)]">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
+                <LazyVideo
+                  sources={[
+                    { src: coffeeTreeGrowthWebm, type: "video/webm" },
+                    { src: coffeeTreeGrowthMp4, type: "video/mp4" },
+                  ]}
                   poster={coffeeTreeGrowthPoster}
                   className="block h-69 w-full object-cover sm:h-79"
-                  aria-label="Coffee tree growth animation"
-                >
-                  <source src={coffeeTreeGrowthVideo} type="video/mp4" />
-                </video>
+                  ariaLabel="Coffee tree growth animation"
+                />
               </div>
               {featuredValue ?
                 <article className="relative mt-5 rounded-[26px] border border-[#cda16e]/20 bg-[linear-gradient(180deg,rgba(205,161,110,0.12),rgba(17,23,20,0.86))] px-5 py-4.5 text-left shadow-[0_16px_38px_rgba(205,161,110,0.1)]">

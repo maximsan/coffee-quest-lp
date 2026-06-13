@@ -1,5 +1,24 @@
 @import 'tailwindcss';
 
+/* Self-hosted, latin-subset variable fonts (woff2 in /public/fonts).
+   Replaces the render-blocking Google Fonts stylesheet so the hero text
+   paints without a third-party round-trip. */
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/syne-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/instrument-sans-latin.woff2') format('woff2');
+}
+
 :root {
   color: #241912;
   background: #f6efe6;

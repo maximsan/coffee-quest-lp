@@ -52,13 +52,18 @@ test.describe("landing page visual regression", () => {
   test("captures full-page snapshot", async ({ page }, testInfo) => {
     await stabilizeLandingPage(page);
 
-    const fileName = testInfo.project.name.includes("mobile")
-      ? "landing-page-mobile.png"
+    const fileName =
+      testInfo.project.name.includes("mobile") ?
+        "landing-page-mobile.png"
       : "landing-page-desktop.png";
 
     await expect(page).toHaveScreenshot(fileName, {
       animations: "disabled",
       fullPage: true,
+      // Autoplaying hero video is non-deterministic;
+      // mask it (its container has
+      // a fixed height, so surrounding layout is still verified).
+      mask: [page.locator("video")],
     });
   });
 
@@ -72,6 +77,8 @@ test.describe("landing page visual regression", () => {
         isMobile ? section.mobile : section.desktop,
         {
           animations: "disabled",
+          // Mask the autoplaying hero video (non-deterministic frames).
+          mask: [page.locator("video")],
         },
       );
     }
