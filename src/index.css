@@ -1,5 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
+
+/* Self-hosted, latin-subset variable fonts (woff2 in /public/fonts).
+   Replaces the render-blocking Google Fonts stylesheet so the hero text
+   paints without a third-party round-trip. */
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/syne-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/instrument-sans-latin.woff2') format('woff2');
+}
 
 :root {
   color: #241912;
@@ -203,9 +221,16 @@ input {
   animation: grove-tree-fruit-bob 3.4s ease-in-out infinite;
 }
 
+/**
+ * Starts at opacity 0.01 (not 0) on purpose: Chromium excludes fully
+ * transparent elements as Largest Contentful Paint candidates, so a 0→1 fade
+ * on the hero heading made Lighthouse report NO_LCP and error the whole
+ * Performance category. 0.01 is visually identical to 0 but keeps the element
+ * LCP-eligible.
+ */
 @keyframes rise-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(16px);
   }
 
