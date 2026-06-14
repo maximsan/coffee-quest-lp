@@ -1,11 +1,20 @@
 name: Generate Linux visual snapshots
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      target_ref:
+        description: "Branch to regenerate Linux snapshots on. 'main' (default) opens a PR; any other branch pushes the new baselines directly back to it."
+        required: false
+        default: main
 
 permissions:
   contents: write
   pull-requests: write
+
+concurrency:
+  group: linux-snapshots-${{ github.event.inputs.target_ref || 'main' }}
+  cancel-in-progress: true
 
 jobs:
   generate:
@@ -18,6 +27,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.target_ref || 'main' }}
+          token: ${{ secrets.SNAPSHOTS_PR_TOKEN }}
+          fetch-depth: 0
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -34,6 +47,7 @@ jobs:
           retention-days: 7
 
       - name: Create or update snapshots PR
+        if: ${{ (github.event.inputs.target_ref || 'main') == 'main' }}
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.SNAPSHOTS_PR_TOKEN }}
@@ -49,3 +63,9 @@ jobs:
 
             Review the changed `*-linux.png` image diffs in the Files tab and merge if they
             look correct. CI runs on this PR because it is opened with a PAT.
+
+      - name: Push snapshots to the source branch
+        if: ${{ (github.event.inputs.target_ref || 'main') != 'main' }}
+        env:
+          TARGET_REF: ${{ github.event.inputs.target_ref }}
+        run: node scripts/push-linux-snapshots.mjs
