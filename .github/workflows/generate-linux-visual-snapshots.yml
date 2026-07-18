@@ -34,7 +34,7 @@ jobs:
           retention-days: 7
 
       - name: Create or update snapshots PR
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.SNAPSHOTS_PR_TOKEN }}
           add-paths: tests/playwright/landing-page.visual.spec.js-snapshots/*-linux.png
