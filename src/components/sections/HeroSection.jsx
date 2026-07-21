@@ -21,7 +21,7 @@ export function HeroSection() {
   return (
     <section
       data-testid="landing-hero"
-      className="relative grid gap-8 pt-1 pb-2 md:pt-4 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-9 lg:pt-8 lg:pb-4"
+      className="relative grid gap-8 pt-3 pb-2 md:pt-4 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-9 lg:pt-2 lg:pb-4"
     >
       <div
         ref={setHeroContentRevealElement}
@@ -29,7 +29,7 @@ export function HeroSection() {
         className="scroll-reveal scroll-reveal--lcp mx-auto flex max-w-190 flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left"
       >
         <SectionTag dark>Structured learning for beginners</SectionTag>
-        <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">
+        <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-tighter text-[#f4eadf] lg:text-7xl">
           A beginner coffee app that feels clear from the first sip.
         </h1>
         <p className="font-botanical-body max-w-175 text-lg leading-8 text-white/80 lg:max-w-xl">
