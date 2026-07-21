@@ -6,10 +6,16 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: write
     container:
       image: mcr.microsoft.com/playwright:v1.60.0-noble
       options: --ipc=host
@@ -17,6 +23,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # The dispatcher reads the PR head commit while CI still tests the merge commit.
+          fetch-depth: 0
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -28,8 +37,12 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Test units and visual snapshots
-        run: pnpm test && pnpm test:visual
+      - name: Test units
+        run: pnpm test
+
+      - name: Visual snapshots
+        id: visual
+        run: pnpm test:visual
 
       - name: Build
         run: pnpm build
@@ -41,6 +54,15 @@ jobs:
           name: playwright-artifacts
           path: tests/playwright/.artifacts/
           retention-days: 7
+
+      - name: Auto-trigger Linux snapshot regeneration
+        if: ${{ failure() && steps.visual.outcome == 'failure' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_HEAD_REPO_FORK: ${{ github.event.pull_request.head.repo.fork }}
+        run: node scripts/dispatch-snapshot-regen.mjs
 
   # Report-only performance/SEO/a11y audit of the built site. Never blocks merge.
   lighthouse:

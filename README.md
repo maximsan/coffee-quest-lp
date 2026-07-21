@@ -25,7 +25,7 @@ pnpm lighthouse
 
 ## Environment
 
-See [docs/environment-variables.md](docs/environment-variables.md) for the source of truth on local testing values, Vercel sensitive variables, and GitHub Actions maintenance secrets.
+See [docs/environment-variables.md](docs/environment-variables.md) for the source of truth on local testing values, Vercel sensitive variables, and GitHub Actions secrets.
 
 ## Waitlist
 
@@ -37,6 +37,8 @@ Playwright baselines live in `tests/playwright/landing-page.visual.spec.js-snaps
 
 - Run `pnpm test:visual` to compare against current baselines.
 - Run `pnpm test:visual:update` only when you intentionally accept visual changes.
+- See [docs/ci-cd.md](docs/ci-cd.md) for CI gates, automatic Linux baseline
+  regeneration, deployment ownership, credentials, and limitations.
 
 ## Performance audits
 

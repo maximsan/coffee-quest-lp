@@ -63,6 +63,15 @@ test.describe("landing page visual regression", () => {
     await expect(section).toHaveCSS("opacity", "1");
   });
 
+  test("freezes scroll reveals before visual capture", async ({ page }) => {
+    await stabilizeLandingPage(page);
+
+    await expect(page.locator(".scroll-reveal").first()).toHaveCSS(
+      "transition-property",
+      "none",
+    );
+  });
+
   test("shows launch notification consent copy next to the form", async ({
     page,
   }) => {

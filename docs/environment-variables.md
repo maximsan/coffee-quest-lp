@@ -134,7 +134,7 @@ If a Vercel CLI env export creates an empty value for a sensitive variable, do n
 
 Never commit `.env.private.local` or `.env.local`. Never log secret values. Never expose secrets with `NEXT_PUBLIC_` or any other browser-exposed prefix. If a secret is lost, rotate it at the original provider and update it in Vercel. After changing Vercel env variables, redeploy the project.
 
-## Maintenance workflow
+## GitHub Actions secrets
 
 The GitHub Actions maintenance workflow cannot read sensitive production values back from Vercel. Store the required maintenance values as GitHub Actions secrets instead:
 
@@ -147,3 +147,9 @@ The workflow validates those names before running the backup scripts. It only pr
 Local maintenance runs use `.env.private.local`.
 
 For waitlist backups, create a private Vercel Blob store connected to the Vercel project. See [`waitlist-setup.md`](waitlist-setup.md) for the Blob setup and backup commands.
+
+Linux visual baseline publication also requires `SNAPSHOTS_PR_TOKEN`. Use a
+fine-grained token scoped to this repository with Contents and Pull requests
+read/write access. It is available only to the trusted publication job; the job
+that runs target-branch code receives no repository secret. See
+[`ci-cd.md`](ci-cd.md#credential-boundary) for the workflow and rotation notes.
