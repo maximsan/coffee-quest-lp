@@ -1,6 +1,6 @@
 # Coffee Quest Landing Page
 
-Landing page for Coffee Quest, a beginner-friendly coffee learning app focused on short lessons, mini-games, Coffee Cards, and visible progress.
+Landing page for Coffee Quest, a beginner-friendly coffee learning app focused on short lessons, mini-games, coffee cards, and visible progress.
 
 ## Stack
 
@@ -46,7 +46,7 @@ CI runs a report-only Lighthouse audit (`lighthouserc.json`) against the built `
 PR; it never blocks merge. To run it locally:
 
 - **Quick check (recommended on macOS):** `pnpm build && pnpm preview`, then open the printed URL
-  in Chrome → DevTools → **Lighthouse** tab → *Analyze*. This drives your installed Chrome, so it
+  in Chrome → DevTools → **Lighthouse** tab → _Analyze_. This drives your installed Chrome, so it
   is unaffected by the local Node architecture.
 - **Full run (matches CI):** `pnpm lighthouse` (builds, then `lhci autorun`). On Apple Silicon the
   **shell** must be arm64 — Lighthouse refuses to launch Chrome from an x64 Node (it would translate
@@ -54,7 +54,7 @@ PR; it never blocks merge. To run it locally:
   whatever architecture the calling shell is; a terminal opened "using Rosetta" yields an x64 Node
   even though the pinned Node is arm64-capable. In the terminal you run from, check with
   `node -p process.arch`; if it prints `x64`, relaunch a native shell (`arch -arm64 zsh`, or uncheck
-  *Open using Rosetta* on the terminal/IDE app) until it prints `arm64`, or just use the DevTools
+  _Open using Rosetta_ on the terminal/IDE app) until it prints `arm64`, or just use the DevTools
   path above.
 
 ## Waitlist Maintenance

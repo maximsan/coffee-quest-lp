@@ -33,7 +33,7 @@ export function HeroSection() {
           A beginner coffee app that feels clear from the first sip.
         </h1>
         <p className="font-botanical-body max-w-175 text-lg leading-8 text-white/80 lg:max-w-xl">
-          Coffee Quest uses short daily lessons, quick mini-games, Coffee Cards,
+          Coffee Quest uses short daily lessons, quick mini-games, coffee cards,
           and a growing coffee tree to turn coffee basics into a habit you can
           actually keep.
         </p>
