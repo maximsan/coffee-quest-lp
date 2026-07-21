@@ -1,12 +1,17 @@
 import { WaitlistForm } from "../forms/WaitlistForm";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { SectionTag } from "../shared/SectionTag";
 
 export function WaitlistCtaSection() {
+  const [setRevealElement, isRevealed] = useScrollReveal();
+
   return (
     <section
+      ref={setRevealElement}
+      data-revealed={isRevealed}
       id="waitlist-five"
       data-testid="landing-waitlist"
-      className="rise-in rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8"
+      className="scroll-reveal rounded-[40px] border border-[#324337] bg-[linear-gradient(135deg,#111814,#1d241f)] px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8"
     >
       <div className="mx-auto flex max-w-180 flex-col items-center text-center">
         <SectionTag dark>EARLY ACCESS</SectionTag>

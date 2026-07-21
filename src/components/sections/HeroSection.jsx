@@ -4,6 +4,7 @@ import { PhoneMockup } from "../previews/PhoneMockup";
 import { ProgressPreview } from "../previews/ProgressPreview";
 import { TreePreview } from "../previews/TreePreview";
 import { SectionTag } from "../shared/SectionTag";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 
 const heroLessonItems = [
   "What bitterness usually means",
@@ -12,12 +13,21 @@ const heroLessonItems = [
 ];
 
 export function HeroSection() {
+  const [setHeroContentRevealElement, isHeroContentRevealed] =
+    useScrollReveal();
+  const [setHeroPreviewRevealElement, isHeroPreviewRevealed] =
+    useScrollReveal();
+
   return (
     <section
       data-testid="landing-hero"
       className="relative grid gap-8 pt-1 pb-2 md:pt-4 md:pb-2 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-9 lg:pt-8 lg:pb-4"
     >
-      <div className="rise-in mx-auto flex max-w-190 flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+      <div
+        ref={setHeroContentRevealElement}
+        data-revealed={isHeroContentRevealed}
+        className="scroll-reveal scroll-reveal--lcp mx-auto flex max-w-190 flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left"
+      >
         <SectionTag dark>Structured learning for beginners</SectionTag>
         <h1 className="font-botanical-display max-w-[11ch] text-[clamp(3.3rem,9vw,5.4rem)] leading-[0.92] tracking-[-0.05em] text-[#f4eadf] lg:text-7xl">
           A beginner coffee app that feels clear from the first sip.
@@ -44,7 +54,11 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="rise-in delay-2 relative mx-auto flex w-full max-w-230 justify-center lg:max-w-130">
+      <div
+        ref={setHeroPreviewRevealElement}
+        data-revealed={isHeroPreviewRevealed}
+        className="scroll-reveal scroll-reveal--delayed relative mx-auto flex w-full max-w-230 justify-center lg:max-w-130"
+      >
         <div className="absolute inset-x-12 top-10 bottom-8 rounded-[42px] border border-white/10 bg-white/5 blur-3xl lg:inset-8" />
         <div className="relative z-10 w-full rounded-[34px] border border-white/10 bg-white/5 p-4 md:p-5 lg:w-auto lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">
           <div className="mx-auto grid w-fit items-start justify-items-center gap-4 md:grid-cols-[280px_280px] md:gap-5 lg:grid-cols-[280px_280px] lg:gap-4">

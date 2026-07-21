@@ -5,8 +5,11 @@ import { HowItWorksSection } from "../components/sections/HowItWorksSection";
 import { LandingPageSections } from "../components/sections/LandingPageSections";
 import { WaitlistCtaSection } from "../components/sections/WaitlistCtaSection";
 import { ScrollBranchBackdrop } from "../components/tree/ScrollBranchBackdrop";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export function LandingPage() {
+  const [setFooterRevealElement, isFooterRevealed] = useScrollReveal();
+
   return (
     <main className="relative overflow-hidden bg-[#0d120f] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(117,160,111,0.26),transparent_18%),radial-gradient(circle_at_82%_16%,rgba(205,161,110,0.18),transparent_22%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_30%),linear-gradient(180deg,#0d120f,#111815_40%,#171d19)]" />
@@ -18,7 +21,12 @@ export function LandingPage() {
           <HowItWorksSection />
           <LandingPageSections />
         </section>
-        <div data-testid="landing-page-end">
+        <div
+          ref={setFooterRevealElement}
+          data-revealed={isFooterRevealed}
+          data-testid="landing-page-end"
+          className="scroll-reveal"
+        >
           <WaitlistCtaSection />
           <div
             data-testid="landing-footer"

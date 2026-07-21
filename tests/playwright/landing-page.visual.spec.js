@@ -35,6 +35,34 @@ const sectionSnapshots = [
 ];
 
 test.describe("landing page visual regression", () => {
+  test("reveals below-the-fold sections once they enter the viewport", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference", colorScheme: "dark" });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    const section = page.getByTestId("landing-progress-and-recall");
+
+    await expect(section).not.toHaveAttribute("data-revealed", "true");
+    await expect(section).toHaveCSS("opacity", "0");
+
+    await section.scrollIntoViewIfNeeded();
+
+    await expect(section).toHaveAttribute("data-revealed", "true");
+  });
+
+  test("shows all sections immediately when reduced motion is preferred", async ({
+    page,
+  }) => {
+    await stabilizeLandingPage(page);
+
+    const section = page.getByTestId("landing-progress-and-recall");
+
+    await expect(section).toHaveAttribute("data-revealed", "true");
+    await expect(section).toHaveCSS("opacity", "1");
+  });
+
   test("shows launch notification consent copy next to the form", async ({
     page,
   }) => {

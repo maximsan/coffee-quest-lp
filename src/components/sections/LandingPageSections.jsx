@@ -2,6 +2,7 @@ import coffeeTreeGrowthWebm from "../../assets/coffee-tree-growth.webm";
 import coffeeTreeGrowthMp4 from "../../assets/coffee-tree-growth.mp4";
 import coffeeTreeGrowthPoster from "../../assets/coffee-tree-poster.webp";
 import { landingPageValueProps } from "../../data/content";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { cx } from "../../utils/cx";
 import { CoffeeCardsConceptPreview } from "../previews/CoffeeCardsConceptPreview";
 import { AudienceList } from "../previews/AudienceList";
@@ -10,6 +11,10 @@ import { LazyVideo } from "../shared/LazyVideo";
 import { SectionTag } from "../shared/SectionTag";
 
 export function LandingPageSections() {
+  const [setWhyItSticksRevealElement, isWhyItSticksRevealed] =
+    useScrollReveal();
+  const [setAudienceRevealElement, isAudienceRevealed] = useScrollReveal();
+  const [setProgressRevealElement, isProgressRevealed] = useScrollReveal();
   const featuredValue = landingPageValueProps.find((item) => item.featured);
   const supportingValues = landingPageValueProps.filter(
     (item) => !item.featured,
@@ -19,8 +24,10 @@ export function LandingPageSections() {
   return (
     <div data-testid="landing-value-sections" className="grid gap-6">
       <div
+        ref={setWhyItSticksRevealElement}
+        data-revealed={isWhyItSticksRevealed}
         data-testid="landing-why-it-sticks"
-        className="rise-in overflow-hidden rounded-[36px] border border-[#304236] bg-[linear-gradient(135deg,rgba(124,167,118,0.12),rgba(255,255,255,0.03))] p-7 sm:p-8 lg:p-9"
+        className="scroll-reveal overflow-hidden rounded-[36px] border border-[#304236] bg-[linear-gradient(135deg,rgba(124,167,118,0.12),rgba(255,255,255,0.03))] p-7 sm:p-8 lg:p-9"
       >
         <div className="mx-auto max-w-175 text-center">
           <SectionTag dark>WHY IT STICKS</SectionTag>
@@ -34,11 +41,12 @@ export function LandingPageSections() {
               <article
                 key={feature.title}
                 className={cx(
-                  "rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
+                  "scroll-reveal__item rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
                   feature.title === accentValueTitle ?
                     "border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.1),rgba(17,23,20,0.92))] px-5 py-5 shadow-[0_22px_54px_rgba(205,161,110,0.1)]"
                   : "border-white/10 px-5 py-4.5",
                 )}
+                style={{ "--reveal-delay": "100ms" }}
               >
                 <h3 className="font-botanical-display text-[1.72rem] leading-[0.98] text-[#f6efe6]">
                   {feature.title}
@@ -50,7 +58,10 @@ export function LandingPageSections() {
             ))}
           </div>
 
-          <div className="order-first lg:order-0">
+          <div
+            className="scroll-reveal__item order-first lg:order-0"
+            style={{ "--reveal-delay": "160ms" }}
+          >
             <div className="relative overflow-hidden rounded-4xl border border-[#4f684d] bg-[linear-gradient(180deg,rgba(20,27,23,0.94),rgba(18,25,21,0.78))] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.22)]">
               <div className="pointer-events-none absolute inset-x-12 top-6 h-24 rounded-full bg-[radial-gradient(circle,rgba(205,161,110,0.22),transparent_68%)] blur-2xl" />
               <div className="overflow-hidden rounded-[27px] border border-[#516a51] bg-[#18201c] shadow-[0_18px_50px_rgba(0,0,0,0.24)]">
@@ -82,11 +93,12 @@ export function LandingPageSections() {
               <article
                 key={feature.title}
                 className={cx(
-                  "rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
+                  "scroll-reveal__item rounded-[28px] border bg-[#111714]/90 text-left shadow-[0_18px_44px_rgba(0,0,0,0.16)]",
                   feature.title === accentValueTitle ?
                     "border-[#cda16e]/18 bg-[linear-gradient(180deg,rgba(205,161,110,0.1),rgba(17,23,20,0.92))] px-5 py-5 shadow-[0_22px_54px_rgba(205,161,110,0.1)]"
                   : "border-white/10 px-5 py-4.5",
                 )}
+                style={{ "--reveal-delay": "220ms" }}
               >
                 <h3 className="font-botanical-display text-[1.72rem] leading-[0.98] text-[#f6efe6]">
                   {feature.title}
@@ -101,8 +113,10 @@ export function LandingPageSections() {
       </div>
 
       <div
+        ref={setAudienceRevealElement}
+        data-revealed={isAudienceRevealed}
         data-testid="landing-who-its-for"
-        className="rise-in rounded-[36px] border border-white/10 bg-white/5 p-7"
+        className="scroll-reveal rounded-[36px] border border-white/10 bg-white/5 p-7"
       >
         <div className="mx-auto max-w-190 text-center">
           <SectionTag dark>Who it&apos;s for</SectionTag>
@@ -116,8 +130,10 @@ export function LandingPageSections() {
       </div>
 
       <div
+        ref={setProgressRevealElement}
+        data-revealed={isProgressRevealed}
         data-testid="landing-progress-and-recall"
-        className="rise-in rounded-[36px] border border-white/10 bg-[#101512] p-7"
+        className="scroll-reveal rounded-[36px] border border-white/10 bg-[#101512] p-7"
       >
         <div className="mx-auto max-w-175 text-center">
           <SectionTag dark>PROGRESS AND RECALL</SectionTag>
@@ -125,12 +141,15 @@ export function LandingPageSections() {
             Quick references and visible growth stay close at hand.
           </h2>
           <p className="mx-auto mt-4 max-w-152 font-botanical-body text-[15px] leading-[1.8] text-white/60 sm:text-[15px]">
-            Coffee Cards keep key ideas easy to revisit, while progress stays
+            Coffee cards keep key ideas easy to revisit, while progress stays
             visible in a quieter, secondary role.
           </p>
         </div>
         <div className="mx-auto mt-10 grid w-full max-w-280 gap-5 xl:grid-cols-2">
-          <article className="relative flex h-full flex-col overflow-hidden rounded-4xl border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6">
+          <article
+            className="scroll-reveal__item relative flex h-full flex-col overflow-hidden rounded-4xl border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6"
+            style={{ "--reveal-delay": "110ms" }}
+          >
             <div className="pointer-events-none absolute left-8 top-6 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(205,161,110,0.16),transparent_70%)] blur-2xl" />
             <div className="relative">
               <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
@@ -150,7 +169,10 @@ export function LandingPageSections() {
             </div>
           </article>
 
-          <article className="relative flex h-full flex-col overflow-hidden rounded-4xl border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6">
+          <article
+            className="scroll-reveal__item relative flex h-full flex-col overflow-hidden rounded-4xl border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255,0.026))] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.025)] lg:p-6"
+            style={{ "--reveal-delay": "190ms" }}
+          >
             <div className="pointer-events-none absolute right-8 top-8 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(124,167,118,0.14),transparent_72%)] blur-2xl" />
             <div className="relative">
               <p className="font-botanical-body text-[11px] uppercase tracking-[0.28em] text-[#c8b18d]">
