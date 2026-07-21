@@ -35,6 +35,15 @@ const sectionSnapshots = [
 ];
 
 test.describe("landing page visual regression", () => {
+  test("freezes entrance animation before visual capture", async ({ page }) => {
+    await stabilizeLandingPage(page);
+
+    await expect(page.locator(".rise-in").first()).toHaveCSS(
+      "animation-name",
+      "none",
+    );
+  });
+
   test("shows launch notification consent copy next to the form", async ({
     page,
   }) => {

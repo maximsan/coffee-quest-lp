@@ -1,16 +1,26 @@
 name: Generate Linux visual snapshots
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      target_ref:
+        description: "Branch to regenerate Linux snapshots on. 'main' (default) opens a PR; any other branch pushes the new baselines directly back to it."
+        required: false
+        default: main
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+
+concurrency:
+  group: linux-snapshots-${{ github.event.inputs.target_ref || 'main' }}
+  cancel-in-progress: true
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
     container:
       image: mcr.microsoft.com/playwright:v1.60.0-noble
       options: --ipc=host
@@ -18,6 +28,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.target_ref || 'main' }}
+          persist-credentials: false
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -33,10 +46,48 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  publish:
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      # Keep executable automation on main separate from the target branch's code.
+      - name: Checkout trusted automation
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          path: automation
+          persist-credentials: false
+
+      - name: Checkout target branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.target_ref || 'main' }}
+          path: target
+          token: ${{ secrets.SNAPSHOTS_PR_TOKEN }}
+          fetch-depth: 0
+
+      - name: Download generated Linux snapshots
+        uses: actions/download-artifact@v8
+        with:
+          name: linux-visual-snapshots
+          path: target/tests/playwright/landing-page.visual.spec.js-snapshots
+
+      - name: Setup Node.js for branch publication
+        if: ${{ (github.event.inputs.target_ref || 'main') != 'main' }}
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: automation/.nvmrc
+
       - name: Create or update snapshots PR
+        if: ${{ (github.event.inputs.target_ref || 'main') == 'main' }}
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.SNAPSHOTS_PR_TOKEN }}
+          path: target
           add-paths: tests/playwright/landing-page.visual.spec.js-snapshots/*-linux.png
           base: main
           branch: ci/update-linux-visual-snapshots
@@ -49,3 +100,10 @@ jobs:
 
             Review the changed `*-linux.png` image diffs in the Files tab and merge if they
             look correct. CI runs on this PR because it is opened with a PAT.
+
+      - name: Push snapshots to the source branch
+        if: ${{ (github.event.inputs.target_ref || 'main') != 'main' }}
+        env:
+          TARGET_REF: ${{ github.event.inputs.target_ref }}
+        working-directory: target
+        run: node ../automation/scripts/push-linux-snapshots.mjs

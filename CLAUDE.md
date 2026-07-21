@@ -23,7 +23,7 @@ pnpm lighthouse        # Build + report-only Lighthouse audit of dist/ (needs ar
 
 Run a single Playwright spec/grep: `pnpm exec playwright test --config tests/playwright/playwright.config.js -g "hero"`.
 
-CI (`.github/workflows/ci.yml`): the `check` job runs lint → `pnpm test && pnpm test:visual` → build on Node 26 (in a Playwright container); a separate, non-blocking `lighthouse` job audits the built `dist/`. Dependabot (`.github/dependabot.yml`) opens weekly grouped dependency PRs.
+CI (`.github/workflows/ci.yml`): the blocking `check` job runs audit (report-only) → lint → unit tests → Playwright visual comparisons → build on Node 26; a separate, non-blocking `lighthouse` job audits `dist/`. A failed visual step dispatches the two-job Linux baseline workflow: unprivileged generation, then trusted publication. Vercel Git integration owns deployment; GitHub Actions does not deploy. See `docs/ci-cd.md`. Dependabot (`.github/dependabot.yml`) opens weekly grouped dependency PRs.
 
 ## Architecture
 
@@ -55,4 +55,4 @@ CI (`.github/workflows/ci.yml`): the `check` job runs lint → `pnpm test && pnp
 
 ## Environment variables
 
-`docs/environment-variables.md` is the source of truth. Key points: Vercel **sensitive** vars are non-readable after creation — a `vercel env pull` may yield empty values; do not try to recover them, rotate/recreate at the provider instead. GitHub Actions maintenance secrets (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `BLOB_READ_WRITE_TOKEN`) are stored separately as Actions secrets. Never commit `.env.local` / `.env.private.local`.
+`docs/environment-variables.md` is the source of truth. Key points: Vercel **sensitive** vars are non-readable after creation — a `vercel env pull` may yield empty values; do not try to recover them, rotate/recreate at the provider instead. GitHub Actions maintenance secrets (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `BLOB_READ_WRITE_TOKEN`) and snapshot publication token (`SNAPSHOTS_PR_TOKEN`) are stored separately as Actions secrets. Never commit `.env.local` / `.env.private.local`.
