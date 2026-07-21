@@ -1,15 +1,6 @@
 /**
- * Dispatches the "Generate Linux visual snapshots" workflow when CI's visual
- * step has failed, so the Linux baselines are regenerated and surfaced for human
- * review (a PR to main, or a commit pushed back onto the failing branch).
- *
- * Invoked by .github/workflows/ci.yml. Inputs come from environment variables
- * (GitHub default vars plus PR_HEAD_REF / PR_HEAD_REPO_FORK passed by the
- * workflow). The GitHub REST API is called directly with fetch, so no `gh` CLI
- * or extra action is required. The decision logic is exported in small, pure
- * pieces for unit testing (tests/dispatchSnapshotRegen.test.js); the orchestrator
- * takes injectable fetch / readHeadSubject / logger. Running directly never
- * throws — a dispatch failure must not mask the visual failure that triggered it.
+ * Best-effort dispatcher for Linux visual baseline regeneration.
+ * A dispatch error is reported without masking the visual failure that invoked it.
  */
 import { realpathSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -38,7 +29,7 @@ export function buildDispatchRequest({ apiBaseUrl, repository, targetRef }) {
   };
 }
 
-function defaultReadHeadSubject() {
+function defaultReadHeadSubject(ref = "HEAD") {
   execFileSync("git", [
     "config",
     "--global",
@@ -46,7 +37,7 @@ function defaultReadHeadSubject() {
     "safe.directory",
     process.env.GITHUB_WORKSPACE ?? "",
   ]);
-  return execFileSync("git", ["log", "-1", "--pretty=%s"], {
+  return execFileSync("git", ["log", "-1", "--pretty=%s", ref], {
     encoding: "utf8",
   }).trim();
 }
@@ -64,7 +55,9 @@ export async function dispatchSnapshotRegen({
   });
 
   const isFork = env.PR_HEAD_REPO_FORK === "true";
-  const headSubject = readHeadSubject();
+  const headRef =
+    env.GITHUB_EVENT_NAME === "pull_request" ? env.PR_HEAD_SHA : "HEAD";
+  const headSubject = readHeadSubject(headRef || "HEAD");
 
   if (!shouldDispatch({ headSubject, isFork })) {
     logger.log(`Not dispatching snapshot regeneration for "${targetRef}".`);

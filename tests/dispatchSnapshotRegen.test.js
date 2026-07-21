@@ -74,6 +74,7 @@ describe("dispatchSnapshotRegen", () => {
   const baseEnv = {
     GITHUB_EVENT_NAME: "pull_request",
     PR_HEAD_REF: "feat/hero",
+    PR_HEAD_SHA: "abc123",
     PR_HEAD_REPO_FORK: "false",
     GITHUB_REF_NAME: "feat/hero",
     GITHUB_API_URL: "https://api.github.com",
@@ -130,6 +131,24 @@ describe("dispatchSnapshotRegen", () => {
         return { ok: true, status: 204 };
       },
       readHeadSubject: () => "test: update Linux visual snapshots",
+      logger: silentLogger,
+    });
+
+    assert.equal(called, false);
+  });
+
+  it("checks the PR head commit instead of the synthetic merge commit", async () => {
+    let called = false;
+    await dispatchSnapshotRegen({
+      env: baseEnv,
+      fetchImpl: async () => {
+        called = true;
+        return { ok: true, status: 204 };
+      },
+      readHeadSubject: (ref) =>
+        ref === baseEnv.PR_HEAD_SHA
+          ? "test: update Linux visual snapshots"
+          : "Merge abc123 into main",
       logger: silentLogger,
     });
 

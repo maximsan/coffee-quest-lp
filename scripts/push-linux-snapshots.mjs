@@ -1,9 +1,8 @@
 /**
  * Commits the regenerated Linux visual baselines and pushes them onto the branch
  * named by TARGET_REF, so that branch's PR re-runs CI against the new baselines.
- * Invoked by .github/workflows/generate-linux-visual-snapshots.yml for the
- * non-main (feature-branch) path. git is invoked via execFileSync with argument
- * arrays (no shell), so the branch name cannot inject shell commands.
+ * The publish job invokes the trusted copy from main with the target checkout as
+ * its working directory. git uses argument arrays, so no shell parses the ref.
  */
 import { execFileSync, spawnSync } from "node:child_process";
 
@@ -24,7 +23,7 @@ git(
   "--global",
   "--add",
   "safe.directory",
-  process.env.GITHUB_WORKSPACE ?? "",
+  process.cwd(),
 );
 git("config", "user.name", "github-actions[bot]");
 git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com");
