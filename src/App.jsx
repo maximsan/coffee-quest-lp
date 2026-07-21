@@ -1,7 +1,13 @@
-import { LandingPage } from './pages/LandingPage'
+import { Analytics } from "@vercel/analytics/next";
+import { LandingPage } from "./pages/LandingPage";
 
 function App() {
-  return <LandingPage />
+  return (
+    <>
+      <Analytics />
+      <LandingPage />
+    </>
+  );
 }
 
-export default App
+export default App;
