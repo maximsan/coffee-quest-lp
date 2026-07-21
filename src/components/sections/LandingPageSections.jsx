@@ -121,7 +121,7 @@ export function LandingPageSections() {
         <div className="mx-auto max-w-190 text-center">
           <SectionTag dark>Who it&apos;s for</SectionTag>
           <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
-            Curious people who want daily momentum, not a coffee lecture.
+            Curious people who want daily momentum, not a coffee lecture
           </h2>
         </div>
         <div className="mx-auto mt-6 max-w-190">
@@ -138,7 +138,7 @@ export function LandingPageSections() {
         <div className="mx-auto max-w-175 text-center">
           <SectionTag dark>PROGRESS AND RECALL</SectionTag>
           <h2 className="mx-auto mt-5 max-w-[13.5ch] font-botanical-display text-[2.35rem] leading-[0.96] text-[#f6ede3] sm:text-[2.95rem]">
-            Quick references and visible growth stay close at hand.
+            Quick references and visible growth stay close at hand
           </h2>
           <p className="mx-auto mt-4 max-w-152 font-botanical-body text-[15px] leading-[1.8] text-white/60 sm:text-[15px]">
             Coffee cards keep key ideas easy to revisit, while progress stays
@@ -156,12 +156,12 @@ export function LandingPageSections() {
                 COFFEE CARDS
               </p>
               <h3 className="mt-3 max-w-[13.5ch] font-botanical-display text-[1.82rem] leading-[0.98] text-[#f6ede3] sm:text-[2.08rem]">
-                Reusable reference, without extra noise.
+                Reusable reference, without extra noise
               </h3>
               <p className="mt-3 max-w-[24rem] font-botanical-body text-[14px] leading-[1.72] text-white/62 sm:text-[14.5px]">
                 Key ideas stay ready for a quick return, with calm spacing and
                 simple card shapes that feel collectible, clear, and worth
-                keeping close.
+                keeping close
               </p>
             </div>
             <div className="relative mt-auto pt-8">
@@ -183,7 +183,7 @@ export function LandingPageSections() {
               </h3>
               <p className="mt-3 max-w-[24rem] font-botanical-body text-[14px] leading-[1.72] text-white/62 sm:text-[14.5px]">
                 Progress stays easy to notice, giving the learning path a calm
-                sense of steady momentum.
+                sense of steady momentum
               </p>
             </div>
             <div className="mt-auto pt-8">

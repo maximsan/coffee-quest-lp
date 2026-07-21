@@ -16,11 +16,11 @@ export function WaitlistCtaSection() {
       <div className="mx-auto flex max-w-180 flex-col items-center text-center">
         <SectionTag dark>EARLY ACCESS</SectionTag>
         <h2 className="mt-5 font-botanical-display text-4xl leading-none text-[#f6ede3] sm:text-5xl">
-          Join the waitlist and build real coffee confidence.
+          Join the waitlist and build real coffee confidence
         </h2>
         <p className="mt-4 max-w-2xl font-botanical-body text-base leading-7 text-white/68">
           Coffee Quest is in early access. <br /> Join the first learners and
-          help shape a clearer, simpler way to learn coffee.
+          help shape a clearer, simpler way to learn coffee
         </p>
         <div className="mt-6 w-full max-w-xl">
           <WaitlistForm
