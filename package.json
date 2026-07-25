@@ -22,12 +22,12 @@
     "test:visual:update": "playwright test --config tests/playwright/playwright.config.js --update-snapshots"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.107.0",
+    "@supabase/supabase-js": "^2.110.8",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/blob": "^2.4.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "resend": "^6.12.4"
+    "@vercel/blob": "^2.6.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "resend": "^6.18.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
